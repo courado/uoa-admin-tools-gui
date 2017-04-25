@@ -1,0 +1,27 @@
+<div id="wrapper">
+    <div id="sidebar-default" class="main-sidebar">
+        <div class="current-user">
+            <a class="name" href="http://www.openminted.eu">
+                <img width="100%" src="http://openminted.eu/wp-content/uploads/2016/02/OpenMINTED_Tag_Color.png" alt="OpenMinted">
+            </a>
+        </div>
+        <div class="menu-section">
+            <h3>General</h3>
+            <ul>
+                <li>
+                    <a routerLink="/dashboard" routerLinkActive="active">
+                        <i class="fa fa-globe"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/configuration" routerLinkActive="active">
+                        <i class="fa fa-cog"></i>
+                        <span>Configuration</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

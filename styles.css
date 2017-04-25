@@ -1,0 +1,88 @@
+#sidebar-default {
+  background: #00b9b4 none repeat scroll 0 0;
+  border-right: 1px solid #18aba6;
+  position: fixed;
+}
+
+#sidebar-default .current-user {
+  background: #fff none repeat scroll 0 0;
+  color: #000;
+  margin-bottom: 40px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+#sidebar-default .menu-section ul li a:hover, #sidebar-default .menu-section ul li a.toggled {
+  background: #18aba6 none repeat scroll 0 0;
+}
+
+#sidebar-default .menu-section ul li a.active {
+  /*background: #ff6600 none repeat scroll 0 0;*/
+  background: #003f3c none repeat scroll 0 0;
+}
+
+#sidebar-default .menu-section h3 {
+  font-size: 14px;
+}
+
+#sidebar-default .menu-section ul li a {
+  color: #fff;
+  font-weight: bold;
+}
+
+#users #content form.search {
+  margin-left: 140px;
+}
+
+#dashboard #content .page-title {
+  border-right: 1px solid #e6e6e6;
+  bottom: 0;
+  color: #7e7e7e;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 20px 30px;
+  position: absolute;
+  text-transform: uppercase;
+  top: 0;
+}
+
+#form #content .menubar.fixed {
+    padding-left: 270px;
+}
+
+#form #content .form-horizontal .form-group .detail {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 7px;
+}
+
+/*#users #content .page-title {
+  !*color: #ff6600;*!
+  color: #003f3c;
+  font-size: 17px;
+  font-weight: 700;
+}*/
+
+
+/*To be moved to resource-type.component.css*/
+
+#users #content .content-wrapper .users-list .headers .header label {
+  height: auto;
+}
+
+#users #content .content-wrapper .users-list .headers .header label span {
+  background: #fff none repeat scroll 0 0;
+  color: #333;
+  display: block;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.14s linear 0s;
+}
+
+/***********************************************/
+
+.btn-primary {
+  background-color: #00b9b4;
+  border-color: #18aba6;
+  color: #fff;
+}
