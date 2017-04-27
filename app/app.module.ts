@@ -10,6 +10,7 @@ import { DashboardComponent } from "./dashboard.component";
 import { TopicsComponent } from "./pages/faq/topics.components";
 import { QuestionsComponent } from "./pages/faq/questions.component";
 import { FAQService } from "./services/faq.service";
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { FAQService } from "./services/faq.service";
         routing,
         HttpModule,
         JsonpModule,
+        ModalModule.forRoot()
     ],
     declarations: [
         AppComponent,
