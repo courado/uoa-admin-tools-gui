@@ -5,7 +5,8 @@ import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from "./dashboard.component";
-import { ConfigurationComponent } from "./pages/configuration/configuration.component";
+import { TopicsComponent } from "./pages/faq/topics.components";
+import { QuestionsComponent } from "./pages/faq/questions.component";
 
 const appRoutes: Routes = [
     {
@@ -18,8 +19,12 @@ const appRoutes: Routes = [
         component: DashboardComponent,
     },
     {
-        path: 'configuration',
-        component: ConfigurationComponent,
+        path: 'topics',
+        component: TopicsComponent,
+    },
+    {
+        path: 'questions',
+        component: QuestionsComponent,
     }
 ];
 

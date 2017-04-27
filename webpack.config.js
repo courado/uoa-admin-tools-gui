@@ -30,7 +30,7 @@ var webpackConfig = {
 
         new webpack.DefinePlugin({"process.env" : {
             PRODUCTION: JSON.stringify(true),
-            API_ENDPOINT : JSON.stringify("backend"),
+            API_ENDPOINT : JSON.stringify("http://194.177.192.227"),
             API_PORT : JSON.stringify("5000"),
             API_PATH : JSON.stringify("/")
         }})

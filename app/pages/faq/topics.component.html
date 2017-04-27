@@ -1,0 +1,107 @@
+<div id="faqTopics">
+    <div id="content">
+        <div class="menubar fixed">
+            <div class="sidebar-toggler visible-xs">
+                <i class="ion-navicon"></i>
+            </div>
+
+            <div class="page-title">FAQ Topics</div>
+            <form target="BSFormPanel_Admin_1" class="search"><input class="gwt-TextBox" placeholder="Search topics (name, description)..." type="text"><input class="btn" type="submit"></form>
+            <a (click)="showModal()" class="btn btn-success pull-right"><i></i> New Topic </a>
+        </div>
+
+        <div class="content-wrapper" id="contentWrapper">
+            <div>
+                <div class="contentPanel">
+                    <div class="alert alert-error" style="display: none;" aria-hidden="true">
+                        <span></span><span></span><span></span></div>
+                    <div class="alert alert-success" style="display: none;" aria-hidden="true">
+                        <span></span><span></span><span></span></div>
+                    <div class="alert" style="display: none;" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <div class="row page-controls">
+                        <div class="col-md-12 filters">
+                            <div class="show-options">
+                                <div class="btn-group"><a href="javascript:;" class="btn dropdown-toggle"
+                                                          data-toggle="dropdown"><i></i> Bulk Actions <span
+                                        class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:;"><i></i> Delete </a></li>
+                                        <li><a href="javascript:;"><i></i> Order Questions By Weight </a></li>
+                                        <li><a href="javascript:;"><i></i> Order Questions By Hit Count </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="gwt-HTML">
+                            <div class="row users-list">
+                                <div class="col-md-12">
+                                    <div class="row headers">
+                                        <div class="col-sm-1 header select-users"><input id="allTopicsCheckbox" type="checkbox">
+                                        </div>
+                                        <div class="col-sm-1 header hidden-xs"><label><a href="#">Date</a></label></div>
+                                        <div class="col-sm-2 header hidden-xs"><label><a href="#">Name</a></label></div>
+                                        <div class="col-sm-4 header hidden-xs"><label><a href="#">Description</a></label></div>
+                                        <div class="col-sm-1 header hidden-xs"><label><a href="#">Weight</a></label></div>
+                                        <div class="col-sm-2 header hidden-xs"><label><a href="#">Questions Order</a></label>
+                                        </div>
+                                        <div class="col-sm-1 header hidden-xs"><label><a href="#">Actions</a></label></div>
+                                    </div>
+
+                                    <template [ngIf]="topics && topics.length>0">
+                                        <div *ngFor="let topic of topics" class="row user">
+                                            <div class="col-sm-1 avatar"><input id="{{topic.id}}" class="checkBox" name="select-user"
+                                                                                type="checkbox"></div>
+                                            <div class="col-sm-1">
+                                                <div class="date" href="#">{{topic.date}}</div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="name" href="#">{{topic.name}}</div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="description" href="#">{{topic.description}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="weight" href="#">{{topic.weight}}</div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="questionsOrder" href="#">{{topic.questionsOrder}}</div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="actions" href="#">
+                                                    <input id="0#edit" title="Edit" src="imgs/icn_edit.png" class="edit" type="image">
+                                                    <input id="0#delete" title="Delete" src="imgs/icn_trash.png" class="delete" type="image">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Auto shown modal</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>I am a modal that is shown right after initialization!</p>
+                <p>I wasn't present in DOM until you clicked the button</p>
+                <p>When you close me, I'll be removed from the DOM</p>
+            </div>
+        </div>
+    </div>
+</div>
+

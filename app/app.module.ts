@@ -7,27 +7,27 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent } from "./app.component";
 import { routing, appRoutingProviders } from "./app.routing";
 import { DashboardComponent } from "./dashboard.component";
-import { ConfigurationComponent } from "./pages/configuration/configuration.component";
+import { TopicsComponent } from "./pages/faq/topics.components";
+import { QuestionsComponent } from "./pages/faq/questions.component";
+import { FAQService } from "./services/faq.service";
 
 @NgModule({
-
     imports: [
         BrowserModule,
         routing,
         HttpModule,
         JsonpModule,
     ],
-
     declarations: [
         AppComponent,
         DashboardComponent,
-        ConfigurationComponent
+        TopicsComponent,
+        QuestionsComponent
     ],
-
     providers: [
+        FAQService,
         appRoutingProviders
     ],
-
     bootstrap: [ AppComponent ]
 })
 
