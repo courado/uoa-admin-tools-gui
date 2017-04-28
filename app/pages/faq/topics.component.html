@@ -49,26 +49,26 @@
                                         <div class="col-sm-1 header hidden-xs"><label><a href="#">Actions</a></label></div>
                                     </div>
 
-                                    <template [ngIf]="topics && topics.length>0">
-                                        <div *ngFor="let topic of topics" class="row user">
-                                            <div class="col-sm-1 avatar"><input id="{{topic._id}}" class="checkBox" type="checkbox"
-                                                                                name="topicscb[]" value="{{topic._id}}" [(ngModel)]="topic.state">
+                                    <template [ngIf]="topicsCheckboxes && topicsCheckboxes.length>0">
+                                        <div *ngFor="let check of topicsCheckboxes" class="row user">
+                                            <div class="col-sm-1 avatar"><input id="{{check.topic._id}}" class="checkBox" type="checkbox"
+                                                                                name="topicscb[]" value="{{check.topic._id}}" [(ngModel)]="check.checked">
                                             </div>
                                             <div class="col-sm-1">
-                                                <div class="date" href="#">{{topic.date | date:'yyyy-MM-dd'}}</div>
+                                                <div class="date" href="#">{{check.topic.date | date:'yyyy-MM-dd'}}</div>
                                             </div>
                                             <div class="col-sm-2">
-                                                <div class="name" href="#">{{topic.name}}</div>
+                                                <div class="name" href="#">{{check.topic.name}}</div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <div class="description" href="#">{{topic.description}}
+                                                <div class="description" href="#">{{check.topic.description}}
                                                 </div>
                                             </div>
                                             <div class="col-sm-1">
-                                                <div class="weight" href="#">{{topic.weight}}</div>
+                                                <div class="weight" href="#">{{check.topic.weight}}</div>
                                             </div>
                                             <div class="col-sm-2">
-                                                <div class="questionsOrder" href="#">{{topic.questionOrder}}</div>
+                                                <div class="questionsOrder" href="#">{{check.topic.questionOrder}}</div>
                                             </div>
                                             <div class="col-sm-1">
                                                 <div class="actions" href="#">
