@@ -41,6 +41,11 @@
 .modal-header .close {
   margin-top: 3px;
 }
+
+.modal-dialog {
+  width: 500px;
+}
+
 /*#dashboard #content .page-title {*/
   /*border-right: 1px solid #e6e6e6;*/
   /*bottom: 0;*/

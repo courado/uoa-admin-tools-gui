@@ -38,7 +38,7 @@
                             <div class="row users-list">
                                 <div class="col-md-12">
                                     <div class="row headers">
-                                        <div class="col-sm-1 header select-users"><input id="allTopicsCheckbox" type="checkbox">
+                                        <div class="col-sm-1 header select-users"><input id="allTopicsCheckbox" type="checkbox" (change)="toggleCheckBoxes($event)">
                                         </div>
                                         <div class="col-sm-1 header hidden-xs"><label><a href="#">Date</a></label></div>
                                         <div class="col-sm-2 header hidden-xs"><label><a href="#">Name</a></label></div>
@@ -51,8 +51,9 @@
 
                                     <template [ngIf]="topics && topics.length>0">
                                         <div *ngFor="let topic of topics" class="row user">
-                                            <div class="col-sm-1 avatar"><input id="{{topic._id}}" class="checkBox" name="select-user"
-                                                                                type="checkbox"></div>
+                                            <div class="col-sm-1 avatar"><input id="{{topic._id}}" class="checkBox" type="checkbox"
+                                                                                name="topicscb[]" value="{{topic._id}}" [(ngModel)]="topic.state">
+                                            </div>
                                             <div class="col-sm-1">
                                                 <div class="date" href="#">{{topic.date | date:'yyyy-MM-dd'}}</div>
                                             </div>

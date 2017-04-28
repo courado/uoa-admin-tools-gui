@@ -57,6 +57,11 @@ export class TopicsComponent {
         this.isModalShown = false;
     }
 
+    public toggleCheckBoxes(event) {
+        this.topics.forEach(x => x.state = event.target.checked);
+        // console.log(event.target.checked);
+    }
+
     public saveTopic(data : Topic):void {
         this._faqService.saveTopic(data).subscribe(
             topic => this.topicSavedSuccessfully(topic),
@@ -66,6 +71,7 @@ export class TopicsComponent {
 
     public topicSavedSuccessfully(topic: Topic) {
         this.topics.push(topic);
+        this.hideModal();
     }
 
     handleError(error) {
