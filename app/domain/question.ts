@@ -4,7 +4,7 @@
 import { Topic } from "./topic";
 
 export interface Question {
-    id: number;
+    _id: number;
     question: string;
     answer: string;
     date : Date;

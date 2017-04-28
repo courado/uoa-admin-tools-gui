@@ -51,10 +51,10 @@
 
                                     <template [ngIf]="topics && topics.length>0">
                                         <div *ngFor="let topic of topics" class="row user">
-                                            <div class="col-sm-1 avatar"><input id="{{topic.id}}" class="checkBox" name="select-user"
+                                            <div class="col-sm-1 avatar"><input id="{{topic._id}}" class="checkBox" name="select-user"
                                                                                 type="checkbox"></div>
                                             <div class="col-sm-1">
-                                                <div class="date" href="#">{{topic.date}}</div>
+                                                <div class="date" href="#">{{topic.date | date:'yyyy-MM-dd'}}</div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <div class="name" href="#">{{topic.name}}</div>
@@ -67,7 +67,7 @@
                                                 <div class="weight" href="#">{{topic.weight}}</div>
                                             </div>
                                             <div class="col-sm-2">
-                                                <div class="questionsOrder" href="#">{{topic.questionsOrder}}</div>
+                                                <div class="questionsOrder" href="#">{{topic.questionOrder}}</div>
                                             </div>
                                             <div class="col-sm-1">
                                                 <div class="actions" href="#">
