@@ -13,20 +13,10 @@ import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 export class TopicsFormComponent implements OnInit{
 
-    constructor(private _fb: FormBuilder) {
-    }
-
     @Input('group')
     myForm: FormGroup;
 
     ngOnInit(): void {
-
-        this.myForm = this._fb.group({
-            name : ['', Validators.required],
-            description : ['', Validators.required],
-            weight : ['0', Validators.required],
-            questionOrder : 'hits'
-        });
     }
 
 }

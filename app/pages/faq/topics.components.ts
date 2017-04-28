@@ -6,7 +6,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { Topic } from "../../domain/topic";
 import { FAQService } from "../../services/faq.service";
-import { FormGroup } from "@angular/forms";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
     selector: 'topics',
@@ -25,10 +25,12 @@ export class TopicsComponent {
 
     ngOnInit() {
         this.getTopics();
+
     }
 
     constructor(private _router: Router,
-                private _faqService: FAQService) {}
+                private _faqService: FAQService,
+                private _fb: FormBuilder) {}
 
     getTopics() {
         this._faqService.getTopics().subscribe(
@@ -38,6 +40,13 @@ export class TopicsComponent {
 
     public showModal(mode : string):void {
         this.isModalShown = true;
+
+        this.formGroup = this._fb.group({
+            name : ['', Validators.required],
+            description : ['', Validators.required],
+            weight : ['0.0', Validators.required],
+            questionOrder : 'hits'
+        });
     }
 
     public hideModal():void {
@@ -48,8 +57,8 @@ export class TopicsComponent {
         this.isModalShown = false;
     }
 
-    public saveTopic():void {
-        this._faqService.saveTopic(this.formGroup.value).subscribe(
+    public saveTopic(data : Topic):void {
+        this._faqService.saveTopic(data).subscribe(
             topic => this.topicSavedSuccessfully(topic),
             error => this.handleError(<any>error)
         );
