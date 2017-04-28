@@ -1,0 +1,22 @@
+<div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"> {{titleText}} </h4>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="errorMessage" class="alert alert-error" aria-hidden="true">{{ errorMessage }}</div>
+                <ng-content></ng-content>
+            </div>
+            <div class="modal-footer">
+                <div class="confirmationModalButtons">
+                    <a (click)="hideModal()" class="btn"><i></i> Cancel </a>
+                    <a (click)="saveCustom(formGroup.value)" class="btn btn-success"><i></i> {{saveText}} </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,3 @@
-
-<div class="alert alert-error" style="display: none;" aria-hidden="true"></div>
 <form [formGroup]="myForm">
     <div class="form-group" [ngClass]="{'has-error':!myForm.controls.name.valid && myForm.controls.name.dirty}">
         <label for="topicNameTag">Topic Name</label>
@@ -20,4 +18,9 @@
             <option value="weight">Weight</option>
         </select>
     </div>
+    <input type="hidden" formControlName="_id">
+    <!--<input type="hidden" formControlName="date">-->
 </form>
+<!--<pre>-->
+    <!--{{myForm.value | json}}-->
+<!--</pre>-->

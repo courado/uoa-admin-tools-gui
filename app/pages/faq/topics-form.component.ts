@@ -16,7 +16,30 @@ export class TopicsFormComponent implements OnInit{
     @Input('group')
     myForm: FormGroup;
 
+    constructor(private _fb: FormBuilder){}
+
     ngOnInit(): void {
+    }
+
+    public get form() {
+        return this._fb.group({
+            name : ['', Validators.required],
+            description : '',
+            weight : ['0.0', Validators.required],
+            questionOrder : 'hits',
+            _id : ''
+            // date : '',
+        });
+    }
+
+    public reset() {
+        this.myForm.patchValue({
+            name : '',
+            description : '',
+            weight : '0.0',
+            questionOrder : 'hits',
+            _id : ''
+        });
     }
 
 }

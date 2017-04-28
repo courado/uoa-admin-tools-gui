@@ -15,6 +15,16 @@ export class FAQService {
 
     private _faqsUrl = process.env.API_ENDPOINT + ':' + process.env.API_PORT + process.env.API_PATH;
 
+    static removeNulls(obj){
+        var isArray = obj instanceof Array;
+        for (var k in obj){
+            if (obj[k]===null || obj[k]==='') isArray ? obj.splice(k,1) : delete obj[k];
+            else if (typeof obj[k]=="object") FAQService.removeNulls(obj[k]);
+        }
+    }
+
+
+
     getTopics() {
         return this.http.get(this._faqsUrl + 'topic')
                 .map(res => <Array<Topic>> res.json())
@@ -25,9 +35,14 @@ export class FAQService {
 
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
-
+        FAQService.removeNulls(topic);
         return this.http.post(this._faqsUrl + 'topic', JSON.stringify(topic), options)
             .map(res => <Topic> res.json())
+            .catch(this.handleError);
+    }
+
+    deleteTopic(id : string) {
+        return this.http.delete(this._faqsUrl + 'topic/' + id)
             .catch(this.handleError);
     }
 

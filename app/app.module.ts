@@ -13,6 +13,7 @@ import { FAQService } from "./services/faq.service";
 import { ModalModule } from 'ngx-bootstrap';
 import {TopicsFormComponent} from "./pages/faq/topics-form.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {ModalFormComponent} from "./pages/modal-form.component";
 
 @NgModule({
     imports: [
@@ -29,7 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         DashboardComponent,
         TopicsComponent,
         QuestionsComponent,
-        TopicsFormComponent
+        TopicsFormComponent,
+        ModalFormComponent
     ],
     providers: [
         FAQService,
