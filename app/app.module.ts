@@ -11,6 +11,8 @@ import { TopicsComponent } from "./pages/faq/topics.components";
 import { QuestionsComponent } from "./pages/faq/questions.component";
 import { FAQService } from "./services/faq.service";
 import { ModalModule } from 'ngx-bootstrap';
+import {TopicsFormComponent} from "./pages/faq/topics-form.component";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
@@ -18,13 +20,16 @@ import { ModalModule } from 'ngx-bootstrap';
         routing,
         HttpModule,
         JsonpModule,
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         AppComponent,
         DashboardComponent,
         TopicsComponent,
-        QuestionsComponent
+        QuestionsComponent,
+        TopicsFormComponent
     ],
     providers: [
         FAQService,

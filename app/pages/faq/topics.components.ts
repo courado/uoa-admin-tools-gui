@@ -6,6 +6,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { Topic } from "../../domain/topic";
 import { FAQService } from "../../services/faq.service";
+import {FormGroup} from "@angular/forms";
 
 @Component({
     selector: 'topics',
@@ -19,6 +20,8 @@ export class TopicsComponent {
 
     public topics: Topic[];
     public errorMessage: string;
+
+    public formGroup : FormGroup
 
     ngOnInit() {
         this.getTopics();
