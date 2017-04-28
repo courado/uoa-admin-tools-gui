@@ -1,6 +1,6 @@
 
 <div class="alert alert-error" style="display: none;" aria-hidden="true"></div>
-<form class="form-horizontal componentForm" [formGroup]="myForm">
+<form [formGroup]="myForm">
     <div class="form-group" [ngClass]="{'has-error':!myForm.controls.name.valid && myForm.controls.name.dirty}">
         <label for="topicNameTag">Topic Name</label>
         <input type="text" class="form-control" formControlName="name" id="topicNameTag" placeholder="Topic Name">

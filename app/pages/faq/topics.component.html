@@ -88,16 +88,23 @@
 </div>
 
 <div *ngIf="isModalShown" [config]="{ show: true }" (onHidden)="onHidden()" bsModal #autoShownModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title pull-left">Auto shown modal</h4>
+
                 <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h4 class="modal-title">Add a new topic</h4>
             </div>
             <div class="modal-body">
                 <topics-form [group]="formGroup"></topics-form>
+            </div>
+            <div class="modal-footer">
+                <div class="confirmationModalButtons">
+                    <a (click)="hideModal()" class="btn"><i></i> Cancel </a>
+                    <a (click)="saveTopic()" class="btn btn-success"><i></i> Save </a>
+                </div>
             </div>
         </div>
     </div>

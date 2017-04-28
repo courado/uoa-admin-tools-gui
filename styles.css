@@ -38,6 +38,9 @@
   padding-left: 300px;
 }
 
+.modal-header .close {
+  margin-top: 3px;
+}
 /*#dashboard #content .page-title {*/
   /*border-right: 1px solid #e6e6e6;*/
   /*bottom: 0;*/

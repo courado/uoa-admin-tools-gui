@@ -2,7 +2,7 @@
  * Created by stefania on 4/26/17.
  */
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { Topic } from './../domain/topic';
 import { Question } from './../domain/question';
@@ -19,6 +19,16 @@ export class FAQService {
         return this.http.get(this._faqsUrl + 'topic')
                 .map(res => <Array<Topic>> res.json())
                 .catch(this.handleError);
+    }
+
+    saveTopic(topic: Topic) {
+
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.post(this._faqsUrl + 'topic', JSON.stringify(topic), options)
+            .map(res => <Topic> res.json())
+            .catch(this.handleError);
     }
 
     // getResources() {

@@ -6,7 +6,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { Topic } from "../../domain/topic";
 import { FAQService } from "../../services/faq.service";
-import {FormGroup} from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'topics',
@@ -21,7 +21,7 @@ export class TopicsComponent {
     public topics: Topic[];
     public errorMessage: string;
 
-    public formGroup : FormGroup
+    public formGroup : FormGroup;
 
     ngOnInit() {
         this.getTopics();
@@ -36,7 +36,7 @@ export class TopicsComponent {
             error =>  this.errorMessage = <any>error);
     }
 
-    public showModal():void {
+    public showModal(mode : string):void {
         this.isModalShown = true;
     }
 
@@ -48,4 +48,18 @@ export class TopicsComponent {
         this.isModalShown = false;
     }
 
+    public saveTopic():void {
+        this._faqService.saveTopic(this.formGroup.value).subscribe(
+            topic => this.topicSavedSuccessfully(topic),
+            error => this.handleError(<any>error)
+        );
+    }
+
+    public topicSavedSuccessfully(topic: Topic) {
+        this.topics.push(topic);
+    }
+
+    handleError(error) {
+        this.errorMessage = 'System error saving topic (Server responded: ' + error + ')';
+    }
 }
