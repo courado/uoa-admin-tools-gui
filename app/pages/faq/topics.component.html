@@ -28,7 +28,7 @@
                                                           data-toggle="dropdown"><i></i> Bulk Actions <span
                                         class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a (click)="deleteSelected()"><i></i> Delete </a></li>
+                                        <li><a (click)="confirmDeleteSelectedTopics()"><i></i> Delete </a></li>
                                         <li><a href="#"><i></i> Order Questions By Weight </a></li>
                                         <li><a href="#"><i></i> Order Questions By Hit Count </a></li>
                                     </ul>
@@ -76,7 +76,7 @@
                                             <div class="col-sm-1">
                                                 <div class="actions" href="#">
                                                     <input title="Edit" src="imgs/icn_edit.png" class="edit" type="image" (click)="editTopic(i)">
-                                                    <input title="Delete" src="imgs/icn_trash.png" class="delete" type="image" (click)="deleteTopic([i])">
+                                                    <input title="Delete" src="imgs/icn_trash.png" class="delete" type="image" (click)="confirmDeleteTopic(check.topic._id)">
                                                 </div>
                                             </div>
                                         </div>
@@ -100,4 +100,6 @@
     <topics-form [group]="formGroup"></topics-form>
 </modal-form>
 
-
+<delete-confirmation-dialog #deleteConfirmationModal [isModalShown]="isModalShown" (emmitObject)="confirmedDeleteTopic($event)">
+    Are you sure you want to delete the selected topic(s)?
+</delete-confirmation-dialog>

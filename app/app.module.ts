@@ -11,9 +11,11 @@ import { TopicsComponent } from "./pages/faq/topics.components";
 import { QuestionsComponent } from "./pages/faq/questions.component";
 import { FAQService } from "./services/faq.service";
 import { ModalModule } from 'ngx-bootstrap';
-import {TopicsFormComponent} from "./pages/faq/topics-form.component";
+import { TopicsFormComponent } from "./pages/faq/topics-form.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {ModalFormComponent} from "./pages/modal-form.component";
+import { ModalFormComponent } from "./pages/modal-form.component";
+import { QuestionsFormComponent } from "./pages/faq/questions-form.component";
+import { DeleteConfirmationDialogComponent } from "./pages/delete-confirmation-dialog.component";
 
 @NgModule({
     imports: [
@@ -31,7 +33,9 @@ import {ModalFormComponent} from "./pages/modal-form.component";
         TopicsComponent,
         QuestionsComponent,
         TopicsFormComponent,
-        ModalFormComponent
+        ModalFormComponent,
+        QuestionsFormComponent,
+        DeleteConfirmationDialogComponent
     ],
     providers: [
         FAQService,

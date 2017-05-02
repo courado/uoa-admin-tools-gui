@@ -7,6 +7,7 @@ import { FAQService } from "../../services/faq.service";
 import { FormGroup } from "@angular/forms";
 import { ModalFormComponent } from "../modal-form.component";
 import { TopicsFormComponent } from "./topics-form.component";
+import { DeleteConfirmationDialogComponent } from "../delete-confirmation-dialog.component";
 
 @Component({
     selector: 'topics',
@@ -21,6 +22,9 @@ export class TopicsComponent implements OnInit {
 
     @ViewChild('updateModal')
     public updateModal:ModalFormComponent;
+
+    @ViewChild('deleteConfirmationModal')
+    public deleteConfirmationModal : DeleteConfirmationDialogComponent;
 
     @ViewChild(TopicsFormComponent)
     public formComponent : TopicsFormComponent;
@@ -70,15 +74,25 @@ export class TopicsComponent implements OnInit {
         this.topicsCheckboxes.splice(i,1);
     }
 
-    //TODO: make the iteration on the server side
-    public deleteTopic(indexes : number[]) {
-        for(let i of indexes) {
-            let id = this.topicsCheckboxes[i].topic._id;
-            this._faqService.deleteTopic(id).subscribe(
-                _ => this.deleteTopicFromArray(id),
-                error => this.handleError(error)
-            );
-        }
+    public confirmDeleteTopic(id : string) {
+        this.deleteConfirmationModal.ids = [id];
+        this.deleteConfirmationModal.showModal();
+    }
+
+    public confirmDeleteSelectedTopics() {
+        this.deleteConfirmationModal.ids = this.getSelectedTopics().map(res => res._id);
+        this.deleteConfirmationModal.showModal();
+    }
+
+    public confirmedDeleteTopic(ids : string[]) {
+        console.log(ids);
+    }
+
+    public deleteTopic(id : string) {
+        this._faqService.deleteTopic(id).subscribe(
+            _ => this.deleteTopicFromArray(id),
+            error => this.handleError(error)
+        );
     }
 
     //TODO: make the iteration on the server side

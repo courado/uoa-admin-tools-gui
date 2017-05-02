@@ -11,7 +11,7 @@ export interface Question {
     isActive: boolean;
     weight: number;
     hitCount: number;
-    topics: Topic[];
+    topics: Topic[] | string[];
 }
 
 export interface CheckQuestion {

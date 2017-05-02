@@ -120,13 +120,13 @@
     </div>
 </div>
 <modal-form #saveModal [saveText]="'Save'" [titleText]="'Add a new Question'" [formGroup]="formGroup"
-            [isModalShown]="isModalShown" (emmitObject)="topicSavedSuccessfully($event)" (emmitError)="handleError($event)">
-    <topics-form [group]="formGroup"></topics-form>
+            [isModalShown]="isModalShown" (emmitObject)="questionSavedSuccessfully($event)" (emmitError)="handleError($event)">
+    <questions-form [group]="formGroup"></questions-form>
 </modal-form>
 
 <modal-form #updateModal [saveText]="'Update'" [titleText]="'Update Question'" [formGroup]="formGroup"
-            [isModalShown]="isModalShown" (emmitObject)="topicUpdatedSuccessfully($event)" (emmitError)="handleError($event)">
-    <topics-form [group]="formGroup"></topics-form>
+            [isModalShown]="isModalShown" (emmitObject)="questionUpdatedSuccessfully($event)" (emmitError)="handleError($event)">
+    <questions-form [group]="formGroup"></questions-form>
 </modal-form>
 
 
