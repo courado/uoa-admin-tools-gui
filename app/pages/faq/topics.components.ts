@@ -69,9 +69,11 @@ export class TopicsComponent implements OnInit {
         return this.topicsCheckboxes.filter(topic => topic.checked == true).map(checkedTopic => checkedTopic.topic);
     }
 
-    private deleteTopicFromArray(id : string) : void {
-        let i = this.topicsCheckboxes.findIndex(_ => _.topic._id == id);
-        this.topicsCheckboxes.splice(i,1);
+    private deleteTopicsFromArray(ids : string[]) : void {
+        for(let id of ids) {
+            let i = this.topicsCheckboxes.findIndex(_ => _.topic._id == id);
+            this.topicsCheckboxes.splice(i, 1);
+        }
     }
 
     public confirmDeleteTopic(id : string) {
@@ -85,25 +87,10 @@ export class TopicsComponent implements OnInit {
     }
 
     public confirmedDeleteTopic(ids : string[]) {
-        console.log(ids);
-    }
-
-    public deleteTopic(id : string) {
-        this._faqService.deleteTopic(id).subscribe(
-            _ => this.deleteTopicFromArray(id),
+        this._faqService.deleteTopics(ids).subscribe(
+            _ => this.deleteTopicsFromArray(ids),
             error => this.handleError(error)
         );
-    }
-
-    //TODO: make the iteration on the server side
-    public deleteSelected() {
-        let ids : string[] = this.getSelectedTopics().map(res => res._id);
-        for(let id of ids) {
-            this._faqService.deleteTopic(id).subscribe(
-                _ => this.deleteTopicFromArray(id),
-                error => this.handleError(error)
-            );
-        }
     }
 
     public sort(type : string) {

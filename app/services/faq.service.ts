@@ -41,8 +41,22 @@ export class FAQService {
             .catch(this.handleError);
     }
 
-    deleteTopic(id : string) {
-        return this.http.delete(this._faqsUrl + 'topic/' + id)
+    updateTopic(topic: Topic) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        FAQService.removeNulls(topic);
+
+        return this.http.put(this._faqsUrl + 'topic', JSON.stringify(topic), options)
+            .map(res => <Topic> res.json())
+            .catch(this.handleError);
+    }
+
+    deleteTopics(ids : string[]) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.post(this._faqsUrl + 'topic/delete',JSON.stringify(ids), options)
             .catch(this.handleError);
     }
 
