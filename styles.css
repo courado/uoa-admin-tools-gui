@@ -46,6 +46,14 @@
   width: 500px;
 }
 
+.dropdown-menu > li > a {
+  cursor: pointer;
+}
+
+#faqQuestions #content .content-wrapper .page-controls .filters .links a {
+  cursor: pointer;
+}
+
 /*#dashboard #content .page-title {*/
   /*border-right: 1px solid #e6e6e6;*/
   /*bottom: 0;*/

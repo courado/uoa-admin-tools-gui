@@ -7,6 +7,7 @@ import { FormGroup } from "@angular/forms";
 import { ModalFormComponent } from "../modal-form.component";
 import { QuestionsFormComponent } from "./questions-form.component";
 import { CheckQuestion, Question } from "../../domain/question";
+import { Topic } from "../../domain/topic";
 
 @Component({
     selector: 'questions',
@@ -31,12 +32,21 @@ export class QuestionsComponent implements OnInit {
 
     public formGroup : FormGroup;
 
+    public topics: Topic[];
+
     ngOnInit() {
+        this.getTopics();
         this.getQuestions();
         this.formGroup = this.formComponent.form;
     }
 
     constructor(private _faqService: FAQService) {}
+
+    getTopics() {
+        this._faqService.getTopics().subscribe(
+            topics => this.topics = topics,
+            error =>  this.errorMessage = <any>error);
+    }
 
     getQuestions() {
         let self = this;
@@ -124,6 +134,22 @@ export class QuestionsComponent implements OnInit {
     public questionUpdatedSuccessfully(question : Question) {
         this.questionsCheckboxes.find(checkItem => checkItem.question._id==question._id).question = question;
         this.applyCheck(false);
+    }
+
+    public filterByTopic(event: any) {
+        console.log(event.target.value);
+    }
+
+    public displayAllQuestions() {
+
+    }
+
+    public displayActiveQuestions() {
+
+    }
+
+    public displayInactiveQuestions() {
+
     }
 
     handleError(error) {

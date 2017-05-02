@@ -25,25 +25,18 @@
                         <div class="col-md-12 filters marginBottom20">
                             <div class="links">
                                 <div class="gwt-Label filterLabel">Filter by topic:</div>
-                                <select class="input-xxlarge">
+                                <select class="input-xxlarge" (change)="filterByTopic($event)">
                                     <option value="noneSelected">-- none selected --</option>
-                                    <option value="33">New Test Topic</option>
-                                    <option value="34">New Test Topic</option>
-                                    <option value="1">Data Registration</option>
-                                    <option value="4">Wrapper</option>
-                                    <option value="5">Search</option>
-                                    <option value="7">Dataset Files Download</option>
-                                    <option value="8">Other</option>
-                                    <option value="6">Data Values Download</option>
+                                    <option *ngFor="let topic of topics" value="{{topic._id}}">{{topic.name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12 filters">
                             <div class="links">
                                 <div class="gwt-Label filterLabel">Filter questions:</div>
-                                    <a class="gwt-Anchor active" href="javascript:;">All Questions (5)</a>
-                                    <a class="gwt-Anchor" href="javascript:;">Active (2)</a>
-                                    <a class="gwt-Anchor" href="javascript:;">Inactive (3)</a>
+                                    <a class="active" (click)="displayAllQuestions()">All Questions (5)</a>
+                                    <a class="gwt-Anchor" (click)="displayActiveQuestions()">Active (2)</a>
+                                    <a class="gwt-Anchor" (click)="displayInactiveQuestions()">Inactive (3)</a>
                                 </div>
                             <div class="show-options">
                                 <div class="btn-group"><a href="javascript:;" class="btn dropdown-toggle"
@@ -100,7 +93,12 @@
                                                 <div class="hitCount" href="#">{{check.question.hitCount}}</div>
                                             </div>
                                             <div class="col-sm-1">
-                                                <div class="isActive" href="#">{{check.question.isActive}}</div>
+                                                <div *ngIf="check.question.isActive" class="activated" >
+                                                    <input class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">
+                                                </div>
+                                                <div *ngIf="!check.question.isActive" class="activated" >
+                                                    <input class="deactivate" src="imgs/x-icon.png" title="Deactivate" width="20" type="image" height="20">
+                                                </div>
                                             </div>
                                             <div class="col-sm-1">
                                                 <div class="actions" href="#">
