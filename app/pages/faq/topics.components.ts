@@ -1,12 +1,12 @@
 /**
  * Created by stefania on 4/26/17.
  */
-import {Component, ViewChild, OnInit} from '@angular/core';
-import {Topic, CheckTopic} from "../../domain/topic";
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { Topic, CheckTopic } from "../../domain/topic";
 import { FAQService } from "../../services/faq.service";
-import {FormGroup } from "@angular/forms";
-import {ModalFormComponent} from "../modal-form.component";
-import {TopicsFormComponent} from "./topics-form.component";
+import { FormGroup } from "@angular/forms";
+import { ModalFormComponent } from "../modal-form.component";
+import { TopicsFormComponent } from "./topics-form.component";
 
 @Component({
     selector: 'topics',
@@ -70,6 +70,7 @@ export class TopicsComponent implements OnInit {
         this.topicsCheckboxes.splice(i,1);
     }
 
+    //TODO: make the iteration on the server side
     public deleteTopic(indexes : number[]) {
         for(let i of indexes) {
             let id = this.topicsCheckboxes[i].topic._id;
@@ -80,7 +81,8 @@ export class TopicsComponent implements OnInit {
         }
     }
 
-    public deleteAll() {
+    //TODO: make the iteration on the server side
+    public deleteSelected() {
         let ids : string[] = this.getSelectedTopics().map(res => res._id);
         for(let id of ids) {
             this._faqService.deleteTopic(id).subscribe(

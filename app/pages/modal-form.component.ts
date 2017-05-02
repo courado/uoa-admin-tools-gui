@@ -1,14 +1,11 @@
 /**
  * Created by stefanos on 28/4/2017.
  */
-
-
-import {Component, ViewChild, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormGroup } from "@angular/forms";
-import {FAQService} from "../services/faq.service";
-import {Topic} from "../domain/topic";
-
+import { FAQService } from "../services/faq.service";
+import { Topic } from "../domain/topic";
 
 @Component({
     selector: 'modal-form',

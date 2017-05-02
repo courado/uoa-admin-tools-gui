@@ -23,8 +23,6 @@ export class FAQService {
         }
     }
 
-
-
     getTopics() {
         return this.http.get(this._faqsUrl + 'topic')
                 .map(res => <Array<Topic>> res.json())
@@ -35,7 +33,9 @@ export class FAQService {
 
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
+
         FAQService.removeNulls(topic);
+
         return this.http.post(this._faqsUrl + 'topic', JSON.stringify(topic), options)
             .map(res => <Topic> res.json())
             .catch(this.handleError);
@@ -43,6 +43,29 @@ export class FAQService {
 
     deleteTopic(id : string) {
         return this.http.delete(this._faqsUrl + 'topic/' + id)
+            .catch(this.handleError);
+    }
+
+    getQuestions() {
+        return this.http.get(this._faqsUrl + 'question')
+            .map(res => <Array<Question>> res.json())
+            .catch(this.handleError);
+    }
+
+    saveQuestion(question: Question) {
+
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        FAQService.removeNulls(question);
+
+        return this.http.post(this._faqsUrl + 'question', JSON.stringify(question), options)
+            .map(res => <Question> res.json())
+            .catch(this.handleError);
+    }
+
+    deleteQuestion(id : string) {
+        return this.http.delete(this._faqsUrl + 'question/' + id)
             .catch(this.handleError);
     }
 

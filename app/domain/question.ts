@@ -4,7 +4,7 @@
 import { Topic } from "./topic";
 
 export interface Question {
-    _id: number;
+    _id: string;
     question: string;
     answer: string;
     date : Date;
@@ -12,4 +12,9 @@ export interface Question {
     weight: number;
     hitCount: number;
     topics: Topic[];
+}
+
+export interface CheckQuestion {
+    question : Question;
+    checked : boolean;
 }
