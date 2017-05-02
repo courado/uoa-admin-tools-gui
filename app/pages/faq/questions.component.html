@@ -26,7 +26,7 @@
                             <div class="links">
                                 <div class="gwt-Label filterLabel">Filter by topic:</div>
                                 <select class="input-xxlarge" (change)="filterByTopic($event)">
-                                    <option value="noneSelected">-- none selected --</option>
+                                    <option value="">-- none selected --</option>
                                     <option *ngFor="let topic of topics" value="{{topic._id}}">{{topic.name}}</option>
                                 </select>
                             </div>
@@ -34,9 +34,9 @@
                         <div class="col-md-12 filters">
                             <div class="links">
                                 <div class="gwt-Label filterLabel">Filter questions:</div>
-                                    <a class="active" (click)="displayAllQuestions()">All Questions (5)</a>
-                                    <a class="gwt-Anchor" (click)="displayActiveQuestions()">Active (2)</a>
-                                    <a class="gwt-Anchor" (click)="displayInactiveQuestions()">Inactive (3)</a>
+                                    <a [ngClass]="{'active' : filters.active==null}" (click)="displayAllQuestions()">All Questions</a>
+                                    <a [ngClass]="{'active' : filters.active==true}" (click)="displayActiveQuestions()">Active</a>
+                                    <a [ngClass]="{'active' : filters.active==false}" (click)="displayInactiveQuestions()">Inactive</a>
                                 </div>
                             <div class="show-options">
                                 <div class="btn-group"><a href="javascript:;" class="btn dropdown-toggle"
@@ -117,12 +117,12 @@
         </div>
     </div>
 </div>
-<modal-form #saveModal [saveText]="'Save'" [titleText]="'Add a new Question'" [formGroup]="formGroup"
+<modal-form #saveModal [saveText]="'Save'" [titleText]="'Add a new Question'" [formGroup]="formGroup" [type]="'question'"
             [isModalShown]="isModalShown" (emmitObject)="questionSavedSuccessfully($event)" (emmitError)="handleError($event)">
-    <questions-form [group]="formGroup"></questions-form>
+    <questions-form [group]="formGroup" [availableTopics]="topics"></questions-form>
 </modal-form>
 
-<modal-form #updateModal [saveText]="'Update'" [titleText]="'Update Question'" [formGroup]="formGroup"
+<modal-form #updateModal [saveText]="'Update'" [titleText]="'Update Question'" [formGroup]="formGroup" [type]="'question'"
             [isModalShown]="isModalShown" (emmitObject)="questionUpdatedSuccessfully($event)" (emmitError)="handleError($event)">
     <questions-form [group]="formGroup"></questions-form>
 </modal-form>

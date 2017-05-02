@@ -18,3 +18,9 @@ export interface CheckQuestion {
     question : Question;
     checked : boolean;
 }
+
+export interface QuestionFilterOptions {
+    id : string;
+    active : boolean;
+    text : string;
+}

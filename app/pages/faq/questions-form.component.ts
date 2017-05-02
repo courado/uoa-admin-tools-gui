@@ -3,6 +3,7 @@
  */
 import {Component, OnInit, Input} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import {Topic} from "../../domain/topic";
 
 
 @Component({
@@ -15,6 +16,8 @@ export class QuestionsFormComponent implements OnInit{
     @Input('group')
     myForm: FormGroup;
 
+    @Input() availableTopics : Topic[] = [];
+
     constructor(private _fb: FormBuilder){}
 
     ngOnInit(): void {
@@ -24,21 +27,22 @@ export class QuestionsFormComponent implements OnInit{
         return this._fb.group({
             question : ['', Validators.required],
             answer : ['', Validators.required],
-            // topics : '',
+            topics : [[''],Validators.required],
             weight : ['0.0', Validators.required],
-            active : false,
-            _id : ''
-            // date : '',
+            isActive : true,
+            _id : '',
+            date : ''
         });
     }
 
     public reset() {
         this.myForm.patchValue({
-            question : '',
-            answer : '',
-            // topics : '',
-            weight : '0.0',
-            active : false,
+            question : ['', Validators.required],
+            answer : ['', Validators.required],
+            topics : [[''],Validators.required],
+            weight : ['0.0', Validators.required],
+            date : '',
+            isActive : true,
             _id : ''
         });
     }

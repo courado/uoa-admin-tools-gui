@@ -6,6 +6,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormGroup } from "@angular/forms";
 import { FAQService } from "../services/faq.service";
 import { Topic } from "../domain/topic";
+import {Question} from "../domain/question";
 
 @Component({
     selector: 'modal-form',
@@ -60,7 +61,10 @@ export class ModalFormComponent {
                 error => this.emmitError.emit(error)
             );
         } else if (this.type == 'question') {
-            return;
+            this._faqService.saveQuestion(<Question> obj).subscribe(
+                data => this.emmitObject.emit(data),
+                error => this.emmitError.emit(error)
+            );
         }
         this.hideModal();
     }

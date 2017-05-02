@@ -6,7 +6,7 @@ import { FAQService } from "../../services/faq.service";
 import { FormGroup } from "@angular/forms";
 import { ModalFormComponent } from "../modal-form.component";
 import { QuestionsFormComponent } from "./questions-form.component";
-import { CheckQuestion, Question } from "../../domain/question";
+import { CheckQuestion, Question, QuestionFilterOptions } from "../../domain/question";
 import { Topic } from "../../domain/topic";
 
 @Component({
@@ -28,11 +28,15 @@ export class QuestionsComponent implements OnInit {
 
     public questionsCheckboxes : CheckQuestion[] = [];
 
+    public questions : Question[] = [];
+
     public errorMessage: string;
 
     public formGroup : FormGroup;
 
     public topics: Topic[];
+
+    public filters : QuestionFilterOptions = {id : '', active : null, text : ''};
 
     ngOnInit() {
         this.getTopics();
@@ -52,6 +56,8 @@ export class QuestionsComponent implements OnInit {
         let self = this;
         this._faqService.getQuestions().subscribe(
             questions => {
+                self.questions = questions;
+                console.log(self.questions)
                 questions.forEach(_ => {
                     self.questionsCheckboxes.push(<CheckQuestion>{question : _, checked : false});
                 });
@@ -102,16 +108,6 @@ export class QuestionsComponent implements OnInit {
         }
     }
 
-    public sort(type : string) {
-        if(type=='weight') {
-            this.questionsCheckboxes.sort(function(a, b) {
-                return a.question.weight - b.question.weight;
-            });
-        } else if (type == 'hits') {
-
-        }
-    }
-
     public editQuestion(i : number) {
         let question : Question = this.questionsCheckboxes[i].question;
         this.formGroup.patchValue(question);
@@ -136,20 +132,41 @@ export class QuestionsComponent implements OnInit {
         this.applyCheck(false);
     }
 
+
+    public filterQuestion(question : Question) : boolean {
+
+        let idFlag = this.filters.id == '' || (<Topic[]>question.topics).map(_ => _._id).includes(this.filters.id);
+        let activeFlag = this.filters.active == null || question.isActive == this.filters.active;
+        let textFlag = true; // TODO apply the question answer search filter
+        console.log(this.filters,idFlag,activeFlag);
+        return idFlag && activeFlag && textFlag;
+    }
+
+    public applyFilter() {
+        this.questionsCheckboxes = [];
+        this.questions.filter(item => this.filterQuestion(item)).forEach(
+            _ => this.questionsCheckboxes.push(<CheckQuestion>{question: _, checked: false})
+        );
+    }
+
     public filterByTopic(event: any) {
-        console.log(event.target.value);
+        this.filters.id = event.target.value;
+        this.applyFilter();
     }
 
     public displayAllQuestions() {
-
+        this.filters.active = null;
+        this.applyFilter();
     }
 
     public displayActiveQuestions() {
-
+        this.filters.active = true;
+        this.applyFilter();
     }
 
     public displayInactiveQuestions() {
-
+        this.filters.active = false;
+        this.applyFilter();
     }
 
     handleError(error) {

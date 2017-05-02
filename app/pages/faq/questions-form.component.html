@@ -12,6 +12,24 @@
         <input type="number" step="0.1" class="form-control" formControlName="weight" id="topicWeightTag" placeholder="Topic Weight (e.g. 3.5)">
     </div>
     <!--<div class="form-group">-->
+        <!--<label for="topicWeightTag">Status</label>-->
+    <bSwitch formControlName="isActive" [switch-on-text]="'Active'" [switch-off-text]="'Inactive'"
+         [switch-label-text]="'Status'"
+         [switch-on-color]="'success'" [switch-off-color]="'default'"
+         [switch-size]="'large'"  [switch-handle-width]="200"
+         [switch-wrapper-class]="'form-group'"></bSwitch>
+
+    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.weight.valid && myForm.controls.weight.dirty}">
+        <label for="topicTag">Weight</label>
+        <select multiple formControlName="topics" id="topicTag" class="form-control">
+
+            <option value="">Select Item</option>
+            <option *ngFor="let topic of availableTopics" [value]="topic._id">{{topic.name}}</option>
+        </select>
+    </div>
+
+    <!--</div>-->
+    <!--<div class="form-group">-->
         <!--<label for="topicQuestionOrder">Order questions by</label>-->
         <!--<select class="form-control" id="topicQuestionOrder" formControlName="questionOrder">-->
             <!--<option value="hits">Hit Count</option>-->
@@ -19,8 +37,8 @@
         <!--</select>-->
     <!--</div>-->
     <input type="hidden" formControlName="_id">
-    <!--<input type="hidden" formControlName="date">-->
+    <input type="hidden" formControlName="date">
 </form>
-<!--<pre>-->
-<!--{{myForm.value | json}}-->
-<!--</pre>-->
+<pre>
+{{myForm.value | json}}
+</pre>
