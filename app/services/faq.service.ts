@@ -60,6 +60,15 @@ export class FAQService {
             .catch(this.handleError);
     }
 
+    orderTopic(ids: string[], order: string) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.post(this._faqsUrl + 'topic/toggle?order='+ order, JSON.stringify(ids), options)
+            .map( res => <string[]> res.json())
+            .catch(this.handleError);
+    }
+
     getQuestions() {
         return this.http.get(this._faqsUrl + 'question')
             .map(res => <Array<Question>> res.json())
@@ -78,8 +87,25 @@ export class FAQService {
             .catch(this.handleError);
     }
 
+    toggleQuestion(ids : string[],status : boolean) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.post(this._faqsUrl + 'question/toggle?status='+ status.toString(), JSON.stringify(ids), options)
+            .map( res => <string[]> res.json())
+            .catch(this.handleError);
+    }
+
     deleteQuestion(id : string) {
         return this.http.delete(this._faqsUrl + 'question/' + id)
+            .catch(this.handleError);
+    }
+
+    deleteQuestions(ids : string[]) {
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers: headers});
+
+        return this.http.post(this._faqsUrl + 'question/delete',JSON.stringify(ids), options)
             .catch(this.handleError);
     }
 
@@ -101,4 +127,6 @@ export class FAQService {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
+
+
 }

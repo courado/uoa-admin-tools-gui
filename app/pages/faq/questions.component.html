@@ -6,8 +6,9 @@
             </div>
 
             <div class="page-title">FAQ Questions</div>
-            <form target="BSFormPanel_Admin_1" class="search">
-                <input class="gwt-TextBox" placeholder="Search questions (question, answer)..." type="text">
+            <form class="search">
+                <!--<input class="gwt-TextBox" placeholder="Search questions (question, answer)..." type="text">-->
+                <input #inputstring (keyup.enter)="filterBySearch(inputstring.value)" placeholder="Search questions (question, answer)..." type="text"/>
                 <input class="btn" type="submit">
             </form>
             <a (click)="showModal()" class="btn btn-success pull-right"><i></i> New Question </a>
@@ -43,9 +44,9 @@
                                                           data-toggle="dropdown"><i></i> Bulk Actions <span
                                         class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:;"><i></i> Activate </a></li>
-                                        <li><a href="javascript:;"><i></i> Deactivate </a></li>
-                                        <li><a (click)="deleteSelected()"><i></i> Delete </a></li>
+                                        <li><a (click)="toggleQuestion(true,getSelectedQuestions())"><i></i> Activate </a></li>
+                                        <li><a (click)="toggleQuestion(false,getSelectedQuestions())"><i></i> Deactivate </a></li>
+                                        <li><a (click)="confirmDeleteSelectedQuestions()"><i></i> Delete </a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -84,7 +85,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-1">
-                                                <div class="topics" href="#">{{check.question.topics}}</div>
+                                                <!--<div class="topics" href="#">{{check.question.topics}}</div>-->
+                                                <span *ngFor="let topic of check.question.topics" class="label label-primary">{{topic.name}}</span>
                                             </div>
                                             <div class="col-sm-1">
                                                 <div class="weight" href="#">{{check.question.weight}}</div>
@@ -92,18 +94,24 @@
                                             <div class="col-sm-1">
                                                 <div class="hitCount" href="#">{{check.question.hitCount}}</div>
                                             </div>
+
+                                                <!--<div *ngIf="check.question.isActive" class="activated" >-->
+                                                    <!--<input class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">-->
+                                                <!--</div>-->
+                                                <!--<div *ngIf="!check.question.isActive" class="activated" >-->
+                                                    <!--<input class="deactivate" src="imgs/x-icon.png" title="Deactivate" width="20" type="image" height="20">-->
+                                                <!--</div>-->
                                             <div class="col-sm-1">
-                                                <div *ngIf="check.question.isActive" class="activated" >
-                                                    <input class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">
-                                                </div>
-                                                <div *ngIf="!check.question.isActive" class="activated" >
-                                                    <input class="deactivate" src="imgs/x-icon.png" title="Deactivate" width="20" type="image" height="20">
-                                                </div>
+                                                <bSwitch [switch-on-text]="'A'" [switch-off-text]="'I'"
+                                                         [switch-label-text]="''" [(ngModel)]="check.question.isActive"
+                                                         [switch-on-color]="'success'" [switch-off-color]="'default'"
+                                                         [switch-size]="'small'"  [switch-handle-width]="22"
+                                                         (onChangeState)="toggleQuestion($event.currentValue,[check.question._id])"></bSwitch>
                                             </div>
                                             <div class="col-sm-1">
                                                 <div class="actions" href="#">
                                                     <input title="Edit" src="imgs/icn_edit.png" class="edit" type="image" (click)="editQuestion(i)">
-                                                    <input title="Delete" src="imgs/icn_trash.png" class="delete" type="image" (click)="deleteQuestion([i])">
+                                                    <input title="Delete" src="imgs/icn_trash.png" class="delete" type="image" (click)="confirmDeleteQuestion(check.question._id)">
                                                 </div>
                                             </div>
                                         </div>
@@ -124,7 +132,10 @@
 
 <modal-form #updateModal [saveText]="'Update'" [titleText]="'Update Question'" [formGroup]="formGroup" [type]="'question'"
             [isModalShown]="isModalShown" (emmitObject)="questionUpdatedSuccessfully($event)" (emmitError)="handleError($event)">
-    <questions-form [group]="formGroup"></questions-form>
+    <questions-form [group]="formGroup" [availableTopics]="topics"></questions-form>
 </modal-form>
 
+<delete-confirmation-dialog #deleteConfirmationModal [isModalShown]="isModalShown" (emmitObject)="confirmedDeleteQuestions($event)">
+    Are you sure you want to delete the selected question(s)?
+</delete-confirmation-dialog>
 

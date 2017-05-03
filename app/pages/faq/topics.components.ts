@@ -31,9 +31,13 @@ export class TopicsComponent implements OnInit {
 
     public topicsCheckboxes : CheckTopic[] = [];
 
+    public topics : Topic[] = [];
+
     public errorMessage: string;
 
     public formGroup : FormGroup;
+
+    private searchText = '';
 
     ngOnInit() {
         this.getTopics();
@@ -46,6 +50,7 @@ export class TopicsComponent implements OnInit {
         let self = this;
         this._faqService.getTopics().subscribe(
             topics => {
+                self.topics = topics;
                 topics.forEach(_ => {
                     self.topicsCheckboxes.push(<CheckTopic>{topic : _, checked : false});
                 });
@@ -65,8 +70,8 @@ export class TopicsComponent implements OnInit {
         this.topicsCheckboxes.forEach(_ => _.checked = flag);
     }
 
-    public getSelectedTopics() : Topic[] {
-        return this.topicsCheckboxes.filter(topic => topic.checked == true).map(checkedTopic => checkedTopic.topic);
+    public getSelectedTopics() : string[] {
+        return this.topicsCheckboxes.filter(topic => topic.checked == true).map(checkedTopic => checkedTopic.topic).map(res => res._id);
     }
 
     private deleteTopicsFromArray(ids : string[]) : void {
@@ -82,7 +87,7 @@ export class TopicsComponent implements OnInit {
     }
 
     public confirmDeleteSelectedTopics() {
-        this.deleteConfirmationModal.ids = this.getSelectedTopics().map(res => res._id);
+        this.deleteConfirmationModal.ids = this.getSelectedTopics();
         this.deleteConfirmationModal.showModal();
     }
 
@@ -109,12 +114,17 @@ export class TopicsComponent implements OnInit {
         this.updateModal.showModal();
     }
 
-    public saveTopic(data : any):void {
-        console.log(data);
-        this._faqService.saveTopic(data).subscribe(
-            topic => this.topicSavedSuccessfully(topic),
+    public toggleTopic(order : string, ids : string[]) {
+        this._faqService.orderTopic(ids,order).subscribe(
+            ret => {
+                for(let id of ret) {
+                    let i = this.topicsCheckboxes.findIndex(_ => _.topic._id == id);
+                    this.topicsCheckboxes[i].topic.questionOrder=order;
+                }
+            },
             error => this.handleError(<any>error)
         );
+        this.applyCheck(false);
     }
 
     public topicSavedSuccessfully(topic: Topic) {
@@ -125,6 +135,23 @@ export class TopicsComponent implements OnInit {
     public topicUpdatedSuccessfully(topic : Topic) {
         this.topicsCheckboxes.find(checkItem => checkItem.topic._id==topic._id).topic = topic;
         this.applyCheck(false);
+    }
+
+    public filterBySearch(text : string) {
+        this.searchText = text;
+        this.applyFilter();
+    }
+
+    public applyFilter() {
+        this.topicsCheckboxes = [];
+        this.topics.filter(item => this.filterQuestion(item)).forEach(
+            _ => this.topicsCheckboxes.push(<CheckTopic>{topic: _, checked: false})
+        );
+    }
+
+    public filterQuestion(topic : Topic) : boolean {
+        let textFlag = this.searchText == '' || (topic.name + ' ' +topic.description).match(this.searchText) != null;
+        return textFlag;
     }
 
     handleError(error) {

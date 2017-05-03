@@ -7,7 +7,8 @@
 
             <div class="page-title">FAQ Topics</div>
             <form target="BSFormPanel_Admin_1" class="search">
-                <input class="gwt-TextBox" placeholder="Search topics (name, description)..." type="text">
+                <!--<input class="gwt-TextBox" placeholder="Search topics (name, description)..." type="text">-->
+                <input #inputstring (keyup.enter)="filterBySearch(inputstring.value)" placeholder="Search topics (name, description)..." type="text"/>
                 <input class="btn" type="submit">
             </form>
             <a (click)="showModal()" class="btn btn-success pull-right"><i></i> New Topic </a>
@@ -29,8 +30,8 @@
                                         class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a (click)="confirmDeleteSelectedTopics()"><i></i> Delete </a></li>
-                                        <li><a href="#"><i></i> Order Questions By Weight </a></li>
-                                        <li><a href="#"><i></i> Order Questions By Hit Count </a></li>
+                                        <li><a (click)="toggleTopic('weight',getSelectedTopics())"><i></i> Order Questions By Weight </a></li>
+                                        <li><a (click)="toggleTopic('hits',getSelectedTopics())"><i></i> Order Questions By Hit Count </a></li>
                                     </ul>
                                 </div>
                             </div>

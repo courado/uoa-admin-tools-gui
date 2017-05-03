@@ -31,20 +31,21 @@ export class QuestionsFormComponent implements OnInit{
             weight : ['0.0', Validators.required],
             isActive : true,
             _id : '',
-            date : ''
+            // date : ''
         });
     }
 
     public reset() {
         this.myForm.patchValue({
-            question : ['', Validators.required],
-            answer : ['', Validators.required],
-            topics : [[''],Validators.required],
-            weight : ['0.0', Validators.required],
-            date : '',
+            question : '',
+            answer : '',
+            topics : [''],
+            weight : '0.0',
+            // date : '',
             isActive : true,
             _id : ''
         });
+        this.myForm.markAsPristine();
     }
 
 }

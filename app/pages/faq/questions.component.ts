@@ -8,6 +8,7 @@ import { ModalFormComponent } from "../modal-form.component";
 import { QuestionsFormComponent } from "./questions-form.component";
 import { CheckQuestion, Question, QuestionFilterOptions } from "../../domain/question";
 import { Topic } from "../../domain/topic";
+import {DeleteConfirmationDialogComponent} from "../delete-confirmation-dialog.component";
 
 @Component({
     selector: 'questions',
@@ -25,6 +26,9 @@ export class QuestionsComponent implements OnInit {
 
     @ViewChild(QuestionsFormComponent)
     public formComponent : QuestionsFormComponent;
+
+    @ViewChild('deleteConfirmationModal')
+    public deleteConfirmationModal : DeleteConfirmationDialogComponent;
 
     public questionsCheckboxes : CheckQuestion[] = [];
 
@@ -57,7 +61,6 @@ export class QuestionsComponent implements OnInit {
         this._faqService.getQuestions().subscribe(
             questions => {
                 self.questions = questions;
-                console.log(self.questions)
                 questions.forEach(_ => {
                     self.questionsCheckboxes.push(<CheckQuestion>{question : _, checked : false});
                 });
@@ -77,41 +80,61 @@ export class QuestionsComponent implements OnInit {
         this.questionsCheckboxes.forEach(_ => _.checked = flag);
     }
 
-    public getSelectedQuestions() : Question[] {
-        return this.questionsCheckboxes.filter(question => question.checked == true).map(checkedQuestion => checkedQuestion.question);
+    public getSelectedQuestions() : string[] {
+        return this.questionsCheckboxes.filter(question => question.checked == true)
+            .map(checkedQuestion => checkedQuestion.question).map(res => res._id);
     }
 
-    private deleteQuestionFromArray(id : string) : void {
-        let i = this.questionsCheckboxes.findIndex(_ => _.question._id == id);
-        this.questionsCheckboxes.splice(i,1);
+    public confirmDeleteQuestion(id : string) {
+        this.deleteConfirmationModal.ids = [id];
+        this.deleteConfirmationModal.showModal();
     }
 
-    //TODO: make the iteration on the server side
-    public deleteQuestion(indexes : number[]) {
-        for(let i of indexes) {
-            let id = this.questionsCheckboxes[i].question._id;
-            this._faqService.deleteQuestion(id).subscribe(
-                _ => this.deleteQuestionFromArray(id),
-                error => this.handleError(error)
-            );
-        }
+    public confirmDeleteSelectedQuestions() {
+        this.deleteConfirmationModal.ids = this.getSelectedQuestions();
+        this.deleteConfirmationModal.showModal();
     }
 
-    //TODO: make the iteration on the server side
-    public deleteSelected() {
-        let ids : string[] = this.getSelectedQuestions().map(res => res._id);
+    public confirmedDeleteQuestions(ids : string[]) {
+        this._faqService.deleteQuestions(ids).subscribe(
+            _ => this.deleteQuestionsFromArray(ids),
+            error => this.handleError(error)
+        );
+    }
+
+    private deleteQuestionsFromArray(ids : string[]) : void {
         for(let id of ids) {
-            this._faqService.deleteQuestion(id).subscribe(
-                _ => this.deleteQuestionFromArray(id),
-                error => this.handleError(error)
-            );
+            let iqc = this.questionsCheckboxes.findIndex(_ => _.question._id == id);
+            let iq = this.questions.findIndex(_ => _._id == id);
+            this.questionsCheckboxes.splice(iqc, 1);
+            this.questions.splice(iqc, 1);
         }
     }
 
     public editQuestion(i : number) {
-        let question : Question = this.questionsCheckboxes[i].question;
+        let question : Question = Object.assign({}, this.questionsCheckboxes[i].question);
+        // question.topics = <Topic[]>Object.create(this.questionsCheckboxes[i].question.topics);
+        let topics : string[] = [];
+        for(let topic of <Topic[]>question.topics) {
+            topics.push(topic._id)
+        }
+        question.topics = topics;
+        console.log(question);
         this.formGroup.patchValue(question);
         this.updateModal.showModal();
+    }
+
+    public toggleQuestion(status : boolean, ids : string[]) {
+        this._faqService.toggleQuestion(ids,status).subscribe(
+            ret => {
+                for(let id of ret) {
+                    let i = this.questionsCheckboxes.findIndex(_ => _.question._id == id);
+                    this.questionsCheckboxes[i].question.isActive=status;
+                }
+            },
+            error => this.handleError(<any>error)
+        );
+        this.applyCheck(false);
     }
 
     public saveQuestion(data : any):void {
@@ -124,11 +147,14 @@ export class QuestionsComponent implements OnInit {
 
     public questionSavedSuccessfully(question: Question) {
         this.questionsCheckboxes.push(<CheckQuestion>{question : question, checked : false});
+        this.questions.push(question);
         this.applyCheck(false);
     }
 
     public questionUpdatedSuccessfully(question : Question) {
         this.questionsCheckboxes.find(checkItem => checkItem.question._id==question._id).question = question;
+        let index = this.questions.findIndex(checkItem => checkItem._id==question._id);
+        this.questions[index] = question;
         this.applyCheck(false);
     }
 
@@ -137,8 +163,7 @@ export class QuestionsComponent implements OnInit {
 
         let idFlag = this.filters.id == '' || (<Topic[]>question.topics).map(_ => _._id).includes(this.filters.id);
         let activeFlag = this.filters.active == null || question.isActive == this.filters.active;
-        let textFlag = true; // TODO apply the question answer search filter
-        console.log(this.filters,idFlag,activeFlag);
+        let textFlag = this.filters.text == '' || (question.question + ' ' +question.answer).match(this.filters.text) != null;
         return idFlag && activeFlag && textFlag;
     }
 
@@ -161,6 +186,11 @@ export class QuestionsComponent implements OnInit {
 
     public displayActiveQuestions() {
         this.filters.active = true;
+        this.applyFilter();
+    }
+
+    public filterBySearch(text : string) {
+        this.filters.text = text;
         this.applyFilter();
     }
 
