@@ -40,7 +40,11 @@ export class QuestionsComponent implements OnInit {
 
     public topics: Topic[];
 
-    public filters : QuestionFilterOptions = {id : '', active : null, text : ''};
+    public checkboxAll : boolean = false;
+
+    public filters : QuestionFilterOptions = {id : '', active : null, text : new RegExp('')};
+
+    public counter = {all : 0, active : 0, inactive : 0};
 
     ngOnInit() {
         this.getTopics();
@@ -56,14 +60,26 @@ export class QuestionsComponent implements OnInit {
             error =>  this.errorMessage = <any>error);
     }
 
+    public countQuestions() {
+        this.counter = {all : this.questionsCheckboxes.length, active : 0, inactive : 0};
+        this.questionsCheckboxes.forEach(_ => {
+            switch ((<Question>_.question).isActive ){
+                case true:this.counter.active++; break;
+                case false:this.counter.inactive++; break;
+            }
+        });
+    }
+
     getQuestions() {
         let self = this;
         this._faqService.getQuestions().subscribe(
             questions => {
                 self.questions = questions;
+                self.counter.all = questions.length;
                 questions.forEach(_ => {
                     self.questionsCheckboxes.push(<CheckQuestion>{question : _, checked : false});
                 });
+                self.countQuestions();
             },
             error =>  this.errorMessage = <any>error);
     }
@@ -74,10 +90,12 @@ export class QuestionsComponent implements OnInit {
 
     public toggleCheckBoxes(event) {
         this.questionsCheckboxes.forEach(_ => _.checked = event.target.checked);
+        this.checkboxAll = event.target.checked;
     }
 
     public applyCheck(flag : boolean) {
         this.questionsCheckboxes.forEach(_ => _.checked = flag);
+        this.checkboxAll = false;
     }
 
     public getSelectedQuestions() : string[] {
@@ -131,10 +149,11 @@ export class QuestionsComponent implements OnInit {
                     let i = this.questionsCheckboxes.findIndex(_ => _.question._id == id);
                     this.questionsCheckboxes[i].question.isActive=status;
                 }
+                this.countQuestions();
+                this.applyCheck(false);
             },
             error => this.handleError(<any>error)
         );
-        this.applyCheck(false);
     }
 
     public saveQuestion(data : any):void {
@@ -149,6 +168,7 @@ export class QuestionsComponent implements OnInit {
         this.questionsCheckboxes.push(<CheckQuestion>{question : question, checked : false});
         this.questions.push(question);
         this.applyCheck(false);
+        this.countQuestions();
     }
 
     public questionUpdatedSuccessfully(question : Question) {
@@ -156,22 +176,24 @@ export class QuestionsComponent implements OnInit {
         let index = this.questions.findIndex(checkItem => checkItem._id==question._id);
         this.questions[index] = question;
         this.applyCheck(false);
+        this.countQuestions();
     }
 
 
-    public filterQuestion(question : Question) : boolean {
+    public filterQuestion(question : Question, filters : QuestionFilterOptions) : boolean {
 
-        let idFlag = this.filters.id == '' || (<Topic[]>question.topics).map(_ => _._id).includes(this.filters.id);
-        let activeFlag = this.filters.active == null || question.isActive == this.filters.active;
-        let textFlag = this.filters.text == '' || (question.question + ' ' +question.answer).match(this.filters.text) != null;
+        let idFlag = filters.id == '' || (<Topic[]>question.topics).map(_ => _._id).includes(filters.id);
+        let activeFlag = filters.active == null || question.isActive == this.filters.active;
+        let textFlag = filters.text.toString() == '' || (question.question + ' ' +question.answer).match(filters.text) != null;
         return idFlag && activeFlag && textFlag;
     }
 
     public applyFilter() {
         this.questionsCheckboxes = [];
-        this.questions.filter(item => this.filterQuestion(item)).forEach(
+        this.questions.filter(item => this.filterQuestion(item,this.filters)).forEach(
             _ => this.questionsCheckboxes.push(<CheckQuestion>{question: _, checked: false})
         );
+        this.countQuestions();
     }
 
     public filterByTopic(event: any) {
@@ -190,13 +212,17 @@ export class QuestionsComponent implements OnInit {
     }
 
     public filterBySearch(text : string) {
-        this.filters.text = text;
+        this.filters.text = new RegExp(text, "i");
         this.applyFilter();
     }
 
     public displayInactiveQuestions() {
         this.filters.active = false;
         this.applyFilter();
+    }
+
+    public getNames(question : Question) : string[]{
+        return (<Topic[]>question.topics).map(_ => _.name);
     }
 
     handleError(error) {

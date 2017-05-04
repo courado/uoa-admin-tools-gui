@@ -20,12 +20,11 @@
          [switch-wrapper-class]="'form-group'"></bSwitch>
 
     <div class="form-group" [ngClass]="{'has-error':!myForm.controls.weight.valid && myForm.controls.weight.dirty}">
-        <label for="topicTag">Weight</label>
+        <label for="topicTag">Select Topic(s)</label>
         <select multiple formControlName="topics" id="topicTag" class="form-control">
-
-            <option value="">Select Item</option>
             <option *ngFor="let topic of availableTopics" [value]="topic._id">{{topic.name}}</option>
         </select>
+        <small class="form-text text-muted">Press <kbd>ctrl</kbd> + <kbd>click</kbd> to select more than one</small>
     </div>
 
     <!--</div>-->

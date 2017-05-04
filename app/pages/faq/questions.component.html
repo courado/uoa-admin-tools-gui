@@ -24,9 +24,9 @@
                     <div class="alert" style="display: none;" aria-hidden="true"><span></span><span></span><span></span></div>
                     <div class="row page-controls">
                         <div class="col-md-12 filters marginBottom20">
-                            <div class="links">
+                            <div class="links form-group form-inline">
                                 <div class="gwt-Label filterLabel">Filter by topic:</div>
-                                <select class="input-xxlarge" (change)="filterByTopic($event)">
+                                <select class="input-xxlarge form-control" (change)="filterByTopic($event)">
                                     <option value="">-- none selected --</option>
                                     <option *ngFor="let topic of topics" value="{{topic._id}}">{{topic.name}}</option>
                                 </select>
@@ -35,9 +35,15 @@
                         <div class="col-md-12 filters">
                             <div class="links">
                                 <div class="gwt-Label filterLabel">Filter questions:</div>
-                                    <a [ngClass]="{'active' : filters.active==null}" (click)="displayAllQuestions()">All Questions</a>
-                                    <a [ngClass]="{'active' : filters.active==true}" (click)="displayActiveQuestions()">Active</a>
-                                    <a [ngClass]="{'active' : filters.active==false}" (click)="displayInactiveQuestions()">Inactive</a>
+                                    <a [ngClass]="{'active' : filters.active==null}" (click)="displayAllQuestions()">
+                                        All Questions ({{counter.all}})
+                                    </a>
+                                    <a [ngClass]="{'active' : filters.active==true}" (click)="displayActiveQuestions()">
+                                        Active ({{counter.active}})
+                                    </a>
+                                    <a [ngClass]="{'active' : filters.active==false}" (click)="displayInactiveQuestions()">
+                                        Inactive ({{counter.inactive}})
+                                    </a>
                                 </div>
                             <div class="show-options">
                                 <div class="btn-group"><a href="javascript:;" class="btn dropdown-toggle"
@@ -57,7 +63,7 @@
                             <div class="row users-list">
                                 <div class="col-md-12">
                                     <div class="row headers">
-                                        <div class="col-sm-1 header select-users"><input id="allQuestionsCheckbox" type="checkbox" (change)="toggleCheckBoxes($event)">
+                                        <div class="col-sm-1 header select-users"><input id="allQuestionsCheckbox" [checked]="checkboxAll" type="checkbox" (change)="toggleCheckBoxes($event)">
                                         </div>
                                         <div class="col-sm-1 header hidden-xs"><label><a href="#">Date</a></label></div>
                                         <div class="col-sm-2 header hidden-xs"><label><a href="#">Question</a></label></div>
@@ -85,8 +91,9 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-1">
+                                                {{getNames(check.question).join(', ')}}
                                                 <!--<div class="topics" href="#">{{check.question.topics}}</div>-->
-                                                <span *ngFor="let topic of check.question.topics" class="label label-primary">{{topic.name}}</span>
+                                                <!--<span *ngFor="let topic of check.question.topics" class="label label-primary">{{topic.name}}</span>-->
                                             </div>
                                             <div class="col-sm-1">
                                                 <div class="weight" href="#">{{check.question.weight}}</div>
