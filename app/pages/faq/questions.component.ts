@@ -61,13 +61,16 @@ export class QuestionsComponent implements OnInit {
     }
 
     public countQuestions() {
-        this.counter = {all : this.questionsCheckboxes.length, active : 0, inactive : 0};
-        this.questionsCheckboxes.forEach(_ => {
-            switch ((<Question>_.question).isActive ){
-                case true:this.counter.active++; break;
-                case false:this.counter.inactive++; break;
+        this.counter = {all : 0, active : 0, inactive : 0};
+        let filter = Object.assign({},this.filters);
+        filter.active = null;
+        this.questions.forEach(_ => {
+            if(this.filterQuestion(_,filter)){
+                if (_.isActive==true) this.counter.active++;
+                else this.counter.inactive++
             }
         });
+        this.counter.all = this.counter.active + this.counter.inactive;
     }
 
     getQuestions() {
@@ -183,7 +186,7 @@ export class QuestionsComponent implements OnInit {
     public filterQuestion(question : Question, filters : QuestionFilterOptions) : boolean {
 
         let idFlag = filters.id == '' || (<Topic[]>question.topics).map(_ => _._id).includes(filters.id);
-        let activeFlag = filters.active == null || question.isActive == this.filters.active;
+        let activeFlag = filters.active == null || question.isActive == filters.active;
         let textFlag = filters.text.toString() == '' || (question.question + ' ' +question.answer).match(filters.text) != null;
         return idFlag && activeFlag && textFlag;
     }

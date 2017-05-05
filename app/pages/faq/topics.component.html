@@ -82,6 +82,9 @@
                                             </div>
                                         </div>
                                     </template>
+                                    <div *ngIf="topicsCheckboxes.length==0" class="col-md-12">
+                                        <div class="alert alert-warning">No topics found</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

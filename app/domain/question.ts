@@ -21,6 +21,6 @@ export interface CheckQuestion {
 
 export interface QuestionFilterOptions {
     id : string;
-    active : boolean;
+    active : Boolean;
     text : RegExp;
 }

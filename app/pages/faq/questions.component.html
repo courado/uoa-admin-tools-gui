@@ -123,6 +123,9 @@
                                             </div>
                                         </div>
                                     </template>
+                                    <div *ngIf="questionsCheckboxes.length==0" class="col-md-12">
+                                        <div class="alert alert-warning">No questions found</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

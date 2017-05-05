@@ -37,7 +37,7 @@ export class TopicsComponent implements OnInit {
 
     public formGroup : FormGroup;
 
-    private searchText = '';
+    private searchText : RegExp = new RegExp('');
 
     ngOnInit() {
         this.getTopics();
@@ -138,7 +138,7 @@ export class TopicsComponent implements OnInit {
     }
 
     public filterBySearch(text : string) {
-        this.searchText = text;
+        this.searchText = new RegExp(text,'i');
         this.applyFilter();
     }
 
@@ -150,7 +150,7 @@ export class TopicsComponent implements OnInit {
     }
 
     public filterQuestion(topic : Topic) : boolean {
-        let textFlag = this.searchText == '' || (topic.name + ' ' +topic.description).match(this.searchText) != null;
+        let textFlag = this.searchText.toString() == '' || (topic.name + ' ' +topic.description).match(this.searchText) != null;
         return textFlag;
     }
 
