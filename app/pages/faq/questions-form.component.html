@@ -11,23 +11,13 @@
         <label for="topicWeightTag">Weight</label>
         <input type="number" step="0.1" class="form-control" formControlName="weight" id="topicWeightTag" placeholder="Topic Weight (e.g. 3.5)">
     </div>
-    <!--<div class="form-group">-->
-        <!--<label for="topicWeightTag">Status</label>-->
     <div class="form-group">
         <label>Select Status</label>
         <label class="checkbox">
-            Active
+            <span style="font-weight: normal;">Active</span>
             <input tabindex="0" type="checkbox" formControlName="isActive">
 
         </label>
-        <!--<div>-->
-            <!--<bSwitch formControlName="isActive" [switch-on-text]="'Active'" [switch-off-text]="'Inactive'"-->
-
-                     <!--[switch-on-color]="'mySuccess'" [switch-off-color]="'default'"-->
-                     <!--[switch-size]="'medium'"  [switch-handle-width]="100"-->
-                     <!--[switch-wrapper-class]="'form-group'">-->
-            <!--</bSwitch>-->
-        <!--</div>-->
     </div>
 
     <div class="form-group" [ngClass]="{'has-error':!myForm.controls.weight.valid && myForm.controls.weight.dirty}">
@@ -37,17 +27,7 @@
         </select>
         <small class="form-text text-muted">Press <kbd>ctrl</kbd> + <kbd>click</kbd> to select more than one</small>
     </div>
-
-    <!--</div>-->
-    <!--<div class="form-group">-->
-        <!--<label for="topicQuestionOrder">Order questions by</label>-->
-        <!--<select class="form-control" id="topicQuestionOrder" formControlName="questionOrder">-->
-            <!--<option value="hits">Hit Count</option>-->
-            <!--<option value="weight">Weight</option>-->
-        <!--</select>-->
-    <!--</div>-->
     <input type="hidden" formControlName="_id">
-    <!--<input type="hidden" formControlName="date">-->
 </form>
 <!--<pre>-->
 <!--{{myForm.value | json}}-->
