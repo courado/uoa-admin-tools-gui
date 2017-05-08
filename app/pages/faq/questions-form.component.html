@@ -13,11 +13,17 @@
     </div>
     <!--<div class="form-group">-->
         <!--<label for="topicWeightTag">Status</label>-->
-    <bSwitch formControlName="isActive" [switch-on-text]="'Active'" [switch-off-text]="'Inactive'"
-         [switch-label-text]="'Status'"
-         [switch-on-color]="'success'" [switch-off-color]="'default'"
-         [switch-size]="'large'"  [switch-handle-width]="200"
-         [switch-wrapper-class]="'form-group'"></bSwitch>
+    <div class="form-group">
+        <label>Select Status</label>
+        <div>
+            <bSwitch formControlName="isActive" [switch-on-text]="'Active'" [switch-off-text]="'Inactive'"
+
+                     [switch-on-color]="'mySuccess'" [switch-off-color]="'default'"
+                     [switch-size]="'medium'"  [switch-handle-width]="100"
+                     [switch-wrapper-class]="'form-group'">
+            </bSwitch>
+        </div>
+    </div>
 
     <div class="form-group" [ngClass]="{'has-error':!myForm.controls.weight.valid && myForm.controls.weight.dirty}">
         <label for="topicTag">Select Topic(s)</label>

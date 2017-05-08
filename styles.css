@@ -54,6 +54,10 @@
   cursor: pointer;
 }
 
+.bootstrap-switch-mySuccess {
+  background: #76b852;
+  color: #fff;
+}
 /*#dashboard #content .page-title {*/
   /*border-right: 1px solid #e6e6e6;*/
   /*bottom: 0;*/
