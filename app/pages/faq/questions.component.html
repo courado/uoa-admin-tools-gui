@@ -101,20 +101,21 @@
                                             <div class="col-sm-1">
                                                 <div class="hitCount" href="#">{{check.question.hitCount}}</div>
                                             </div>
-
-                                                <!--<div *ngIf="check.question.isActive" class="activated" >-->
-                                                    <!--<input class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">-->
-                                                <!--</div>-->
-                                                <!--<div *ngIf="!check.question.isActive" class="activated" >-->
-                                                    <!--<input class="deactivate" src="imgs/x-icon.png" title="Deactivate" width="20" type="image" height="20">-->
-                                                <!--</div>-->
                                             <div class="col-sm-1">
-                                                <bSwitch [switch-on-text]="'A'" [switch-off-text]="'I'"
-                                                         [switch-label-text]="''" [(ngModel)]="check.question.isActive"
-                                                         [switch-on-color]="'mySuccess'" [switch-off-color]="'default'"
-                                                         [switch-size]="'small'"  [switch-handle-width]="22"
-                                                         (onChangeState)="toggleQuestion($event.currentValue,[check.question._id])"></bSwitch>
+                                                <div *ngIf="check.question.isActive" class="activated" >
+                                                    <input (click)="toggleQuestion(false,[check.question._id])" class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">
+                                                </div>
+                                                <div *ngIf="!check.question.isActive" class="activated" >
+                                                    <input (click)="toggleQuestion(true,[check.question._id])" class="deactivate" src="imgs/x-icon.png" title="Deactivate" width="20" type="image" height="20">
+                                                </div>
                                             </div>
+                                            <!--<div class="col-sm-1">-->
+                                                <!--<bSwitch [switch-on-text]="'A'" [switch-off-text]="'I'"-->
+                                                         <!--[switch-label-text]="''" [(ngModel)]="check.question.isActive"-->
+                                                         <!--[switch-on-color]="'mySuccess'" [switch-off-color]="'default'"-->
+                                                         <!--[switch-size]="'small'"  [switch-handle-width]="22"-->
+                                                         <!--(onChangeState)="toggleQuestion($event.currentValue,[check.question._id])"></bSwitch>-->
+                                            <!--</div>-->
                                             <div class="col-sm-1">
                                                 <div class="actions" href="#">
                                                     <input title="Edit" src="imgs/icn_edit.png" class="edit" type="image" (click)="editQuestion(i)">
