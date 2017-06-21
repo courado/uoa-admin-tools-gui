@@ -33,7 +33,9 @@ export class TopicsComponent implements OnInit {
 
     public topics : Topic[] = [];
 
-    public errorMessage: string;
+    public errorMessage: string = null;
+
+    public successMessage: string = null;
 
     public formGroup : FormGroup;
 
@@ -75,6 +77,7 @@ export class TopicsComponent implements OnInit {
     }
 
     private deleteTopicsFromArray(ids : string[]) : void {
+        this.successMessage = `Successfully deleted Topic(s)`;
         for(let id of ids) {
             let i = this.topicsCheckboxes.findIndex(_ => _.topic._id == id);
             this.topicsCheckboxes.splice(i, 1);
@@ -129,11 +132,13 @@ export class TopicsComponent implements OnInit {
 
     public topicSavedSuccessfully(topic: Topic) {
         this.topicsCheckboxes.push(<CheckTopic>{topic : topic, checked : false});
+        this.successMessage = `Topic [${topic.name}] saved successfully`;
         this.applyCheck(false);
     }
 
     public topicUpdatedSuccessfully(topic : Topic) {
         this.topicsCheckboxes.find(checkItem => checkItem.topic._id==topic._id).topic = topic;
+        this.successMessage = `Topic [${topic.name}] updated successfully`;
         this.applyCheck(false);
     }
 
@@ -157,7 +162,8 @@ export class TopicsComponent implements OnInit {
     handleError(error) {
         if(error == null) {
             this.formComponent.reset();
+        } else {
+            this.errorMessage = 'System error saving topic (Server responded: ' + error + ')';
         }
-        this.errorMessage = 'System error saving topic (Server responded: ' + error + ')';
     }
 }

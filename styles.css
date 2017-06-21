@@ -1456,5 +1456,10 @@ table.dataTable td input.edit {
   padding-left: 0;
 }
 
+.form-group.required label:after {
+  content:"*";
+  color:red;
+}
+
 
 

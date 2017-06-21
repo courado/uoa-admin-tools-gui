@@ -16,7 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalFormComponent } from "./pages/modal-form.component";
 import { QuestionsFormComponent } from "./pages/faq/questions-form.component";
 import { DeleteConfirmationDialogComponent } from "./pages/delete-confirmation-dialog.component";
-import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
 
 @NgModule({
     imports: [
@@ -26,8 +25,7 @@ import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
         JsonpModule,
         ModalModule.forRoot(),
         FormsModule,
-        ReactiveFormsModule,
-        JWBootstrapSwitchModule
+        ReactiveFormsModule
     ],
     declarations: [
         AppComponent,

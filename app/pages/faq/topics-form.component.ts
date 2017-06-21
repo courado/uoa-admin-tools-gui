@@ -40,6 +40,7 @@ export class TopicsFormComponent implements OnInit{
             questionOrder : 'hits',
             _id : ''
         });
+        this.myForm.markAsPristine();
     }
 
 }

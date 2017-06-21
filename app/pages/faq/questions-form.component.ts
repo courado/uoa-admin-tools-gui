@@ -27,7 +27,7 @@ export class QuestionsFormComponent implements OnInit{
         return this._fb.group({
             question : ['', Validators.required],
             answer : ['', Validators.required],
-            topics : [[''],Validators.required],
+            topics : [[],Validators.required],
             weight : ['0.0', Validators.required],
             isActive : true,
             _id : '',
@@ -39,7 +39,7 @@ export class QuestionsFormComponent implements OnInit{
         this.myForm.patchValue({
             question : '',
             answer : '',
-            topics : [''],
+            topics : [],
             weight : '0.0',
             // date : '',
             isActive : true,
