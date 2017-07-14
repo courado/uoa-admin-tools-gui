@@ -66,6 +66,12 @@ export class HelpContentService {
             .catch(this.handleError);
     }
 
+    getPageHelpContent(id : string) {
+        return this.http.get(this._helpContentUrl + 'pagehelpcontent/' + id)
+            .map(res => <PageHelpContent> res.json())
+            .catch(this.handleError);
+    }
+
     savePageHelpContent(pageHelpContent: PageHelpContent) {
 
         let headers = new Headers({'Content-Type': 'application/json'});

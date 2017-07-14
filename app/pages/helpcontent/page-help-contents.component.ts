@@ -7,6 +7,7 @@ import { DeleteConfirmationDialogComponent } from "../delete-confirmation-dialog
 import { HelpContentService } from "../../services/help-content.service";
 import { PageHelpContent, CheckPageHelpContent, PageHelpContentFilterOptions } from "../../domain/page-help-content";
 import { Page } from "../../domain/page";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'page-help-contents',
@@ -50,7 +51,7 @@ export class PageHelpContentsComponent implements OnInit {
         // this.formGroup = this.formComponent.form;
     }
 
-    constructor(private _helpService: HelpContentService) {}
+    constructor(private _helpService: HelpContentService, private router : Router) {}
 
     getPages() {
         this._helpService.getPages().subscribe(
@@ -75,9 +76,9 @@ export class PageHelpContentsComponent implements OnInit {
         let self = this;
         this._helpService.getPageHelpContents().subscribe(
             pageHelpContents => {
-                self.pageHelpContents = pageHelpContents;
-                self.counter.all = pageHelpContents.length;
-                pageHelpContents.forEach(_ => {
+                self.pageHelpContents = pageHelpContents as Array<PageHelpContent>;
+                self.counter.all = self.pageHelpContents.length;
+                self.pageHelpContents.forEach(_ => {
                     self.pageHelpContentsCheckboxes.push(<CheckPageHelpContent>{pageHelpContent : _, checked : false});
                 });
                 self.countPageHelpContents();
@@ -131,7 +132,7 @@ export class PageHelpContentsComponent implements OnInit {
     }
 
     public editPageHelpContent(_id : string) {
-        this.router.navigate(['/pageContents/edit/', id]);
+        this.router.navigate(['/pageContents/edit/', _id]);
     }
 
     public togglePageHelpContents(status : boolean, ids : string[]) {

@@ -14,17 +14,7 @@
             </p>
             <div>
                 <page-content-form [group]="formGroup"></page-content-form>
-                <!--<ckeditor-->
-                        <!--[(ngModel)]="ckeditorContent"-->
-                        <!--[readonly]="false"-->
-                        <!--(change)="onChange($event)"-->
-                        <!--(ready)="onReady($event)"-->
-                        <!--(focus)="onFocus($event)"-->
-                        <!--(blur)="onBlur($event)"-->
-                        <!--debounce="500">-->
-                        <!--&lt;!&ndash;[config]="{uiColor: '#99000'}"&ndash;&gt;-->
-
-                <!--</ckeditor>-->
+                <a (click)="saveCustom()" class="btn btn-success"><i></i>Save New Page Help Content</a>
             </div>
         </div>
     </div>

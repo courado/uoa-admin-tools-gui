@@ -20,9 +20,12 @@ export class PageContentFormComponent implements OnInit{
     private availablePages : Page[] = [];
     private errorMessage: string;
 
+    private ckeditorContent : string;
+
     constructor(private _fb: FormBuilder, private _helpContentService: HelpContentService){}
 
     ngOnInit() {
+        this.myForm = this.form;
         this._helpContentService.getPages().subscribe(
             pages => this.availablePages = pages,
             error => this.handleError('System error retrieving pages', error));
@@ -30,7 +33,7 @@ export class PageContentFormComponent implements OnInit{
 
     public get form() {
         return this._fb.group({
-            page : [[''],Validators.required],
+            page : ['',Validators.required],
             placement : ['', Validators.required],
             content : ['', Validators.required],
             order : ['1', Validators.required],
