@@ -1,0 +1,58 @@
+<div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
+<form [formGroup]="myForm">
+    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.page.valid && myForm.page.dirty}">
+        <label for="pageTag">Select Page</label>
+        <select formControlName="page" id="pageTag" class="form-control">
+            <option *ngFor="let page of availablePages" [value]="page._id">{{page.name}}</option>
+        </select>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.placement.valid && myForm.controls.placement.dirty}">
+        <label for="placementTag">Select Placement</label>
+        <select formControlName="page" id="placementTag" class="form-control">
+            <option [value]="top">Top</option>
+            <option [value]="left">Left</option>
+            <option [value]="right">Right</option>
+            <option [value]="bottom">Bottom</option>
+        </select>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.content.valid && myForm.controls.content.dirty}">
+        <label for="contentTag">Content</label>
+        <div>
+            <ckeditor
+                    [(ngModel)]="ckeditorContent"
+                    [readonly]="false"
+                    (change)="onChange($event)"
+                    (ready)="onReady($event)"
+                    (focus)="onFocus($event)"
+                    (blur)="onBlur($event)"
+                    debounce="500">
+                <!--formControlName="content"-->
+                <!--id="contentTag"-->
+
+                <!--[config]="{uiColor: '#99000'}"-->
+
+            </ckeditor>
+        </div>
+
+        <!--<textarea class="form-control" formControlName="content" id="contentTag" placeholder="Content" rows="3"></textarea>-->
+    </div>
+    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.order.valid && myForm.controls.order.dirty}">
+        <label for="orderTag">Order</label>
+        <input type="number" step="1" class="form-control" formControlName="order" id="orderTag" placeholder="Order (e.g. 2)">
+    </div>
+    <div class="form-group">
+        <label>Select Status</label>
+        <div>
+            <bSwitch formControlName="isActive" [switch-on-text]="'Active'" [switch-off-text]="'Inactive'"
+
+                     [switch-on-color]="'mySuccess'" [switch-off-color]="'default'"
+                     [switch-size]="'medium'"  [switch-handle-width]="100"
+                     [switch-wrapper-class]="'form-group'">
+            </bSwitch>
+        </div>
+    </div>
+    <input type="hidden" formControlName="_id">
+</form>
+<!--<pre>-->
+<!--{{myForm.value | json}}-->
+<!--</pre>-->

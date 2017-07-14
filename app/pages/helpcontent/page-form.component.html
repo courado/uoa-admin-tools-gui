@@ -1,0 +1,14 @@
+<form [formGroup]="myForm">
+    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.name.valid && myForm.controls.route.dirty}">
+        <label for="pageRouteTag">Page Route</label>
+        <input type="text" class="form-control" formControlName="route" id="pageRouteTag" placeholder="Page Route">
+    </div>
+    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.name.valid && myForm.controls.name.dirty}">
+        <label for="pageNameTag">Page Name</label>
+        <input type="text" class="form-control" formControlName="name" id="pageNameTag" placeholder="Page Name">
+    </div>
+    <input type="hidden" formControlName="_id">
+</form>
+<!--<pre>-->
+<!--{{myForm.value | json}}-->
+<!--</pre>-->

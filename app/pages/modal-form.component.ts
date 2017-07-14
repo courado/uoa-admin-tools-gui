@@ -6,7 +6,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { FormGroup } from "@angular/forms";
 import { FAQService } from "../services/faq.service";
 import { Topic } from "../domain/topic";
-import {Question} from "../domain/question";
+import { Question } from "../domain/question";
+import { HelpContentService } from "../services/help-content.service";
+import { Page } from "../domain/page";
 
 @Component({
     selector: 'modal-form',
@@ -14,7 +16,7 @@ import {Question} from "../domain/question";
 })
 export class ModalFormComponent {
 
-    constructor(private _faqService : FAQService){
+    constructor(private _faqService : FAQService, private _helpService: HelpContentService){
     }
 
     @ViewChild('autoShownModal')
@@ -62,6 +64,11 @@ export class ModalFormComponent {
             );
         } else if (this.type == 'question') {
             this._faqService.saveQuestion(<Question> obj).subscribe(
+                data => this.emmitObject.emit(data),
+                error => this.emmitError.emit(error)
+            );
+        } else if (this.type == 'page') {
+            this._helpService.savePage(<Page> obj).subscribe(
                 data => this.emmitObject.emit(data),
                 error => this.emmitError.emit(error)
             );

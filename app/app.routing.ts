@@ -7,6 +7,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from "./dashboard.component";
 import { TopicsComponent } from "./pages/faq/topics.components";
 import { QuestionsComponent } from "./pages/faq/questions.component";
+import { PagesComponent } from "./pages/helpcontent/pages.component";
+import { PageHelpContentsComponent } from "./pages/helpcontent/page-help-contents.component";
+import { NewPageHelpContentComponent } from "./pages/helpcontent/new-page-help-content.component";
 
 const appRoutes: Routes = [
     {
@@ -25,6 +28,18 @@ const appRoutes: Routes = [
     {
         path: 'questions',
         component: QuestionsComponent,
+    },
+    {
+        path: 'pages',
+        component: PagesComponent,
+    },
+    {
+        path: 'pageContents',
+        component: PageHelpContentsComponent,
+    },
+    {
+        path: 'pageContents/new',
+        component: NewPageHelpContentComponent,
     }
 ];
 

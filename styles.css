@@ -34,7 +34,7 @@
   margin-left: 140px;
 }
 
-#dashboard #content .menubar.fixed {
+#dashboard #content .menubar.fixed, #newPageHelpContent #content .menubar.fixed {
   padding-left: 300px;
 }
 
@@ -726,7 +726,9 @@ a {
 #news #content .page-title,
 #dataProviders #content .page-title,
 #faqTopics #content .page-title,
-#faqQuestions #content .page-title {
+#faqQuestions #content .page-title,
+#pages #content .page-title,
+#pageContents #content .page-title {
   border-right: 1px solid #e6e6e6;
   bottom: 0;
   color: #7e7e7e;
@@ -757,7 +759,9 @@ a {
 #news #content .content-wrapper .contentPanel .alert,
 #faqTopics #content .content-wrapper .contentPanel .alert,
 #faqQuestions #content .content-wrapper .contentPanel .alert,
-#harvestHistory #content .content-wrapper .contentPanel .alert {
+#harvestHistory #content .content-wrapper .contentPanel .alert,
+#pages #content .content-wrapper .contentPanel .alert,
+#pageContents #content .content-wrapper .contentPanel .alert {
   margin-left: -10px;
   margin-right: -10px;
 }
@@ -942,6 +946,22 @@ a {
   width: 360px;
 }
 
+#pages #content form.search {
+  float: left;
+  margin-left: 150px;
+  position: relative;
+  top: -2px;
+  width: 360px;
+}
+
+#pageContents #content form.search {
+  float: left;
+  margin-left: 250px;
+  position: relative;
+  top: -2px;
+  width: 360px;
+}
+
 #dataProviders #content form.search {
   float: left;
   margin-left: 220px;
@@ -955,7 +975,9 @@ a {
 #news #content form.search input[type="text"],
 #dataProviders #content form.search input[type="text"],
 #faqTopics #content form.search input[type="text"],
-#faqQuestions #content form.search input[type="text"] {
+#faqQuestions #content form.search input[type="text"],
+#pages #content form.search input[type="text"],
+#pageContents #content form.search input[type="text"] {
   border: 0 none;
   border-radius: 3px;
   padding: 6px 15px 6px 37px;
@@ -973,7 +995,9 @@ a {
 #news #content form.search input[type="submit"],
 #dataProviders #content form.search input[type="submit"],
 #faqTopics #content form.search input[type="submit"],
-#faqQuestions #content form.search input[type="submit"] {
+#faqQuestions #content form.search input[type="submit"],
+#pages #content form.search input[type="submit"],
+#pageContents #content form.search input[type="submit"] {
   position: absolute;
   visibility: hidden;
 }
@@ -982,11 +1006,15 @@ a {
 #roles #content .content-wrapper .page-controls,
 #news #content .content-wrapper .page-controls,
 #faqTopics #content .content-wrapper .page-controls,
-#harvestHistory #content .content-wrapper .page-controls {
+#harvestHistory #content .content-wrapper .page-controls,
+#pages #content .content-wrapper .page-controls
+{
   margin-top: 30px;
 }
 
-#faqQuestions #content .content-wrapper .page-controls {
+#faqQuestions #content .content-wrapper .page-controls,
+#pageContents #content .content-wrapper .page-controls
+{
   margin-top: 10px;
 }
 
@@ -995,6 +1023,8 @@ a {
 #news #content .content-wrapper .page-controls .filters .links,
 #faqTopics #content .content-wrapper .page-controls .filters .links,
 #faqQuestions #content .content-wrapper .page-controls .filters .links,
+#pages #content .content-wrapper .page-controls .filters .links,
+#pageContents #content .content-wrapper .page-controls .filters .links,
 #harvestHistory #content .content-wrapper .page-controls .filters .links,
 #harvest #content .content-wrapper .page-controls .filters .links {
   float: left;
@@ -1006,6 +1036,8 @@ a {
 #news #content .content-wrapper .page-controls .filters .links .filterLabel,
 #faqTopics #content .content-wrapper .page-controls .filters .links .filterLabel,
 #faqQuestions #content .content-wrapper .page-controls .filters .links .filterLabel,
+#pages #content .content-wrapper .page-controls .filters .links .filterLabel,
+#pageContents #content .content-wrapper .page-controls .filters .links .filterLabel,
 #harvestHistory #content .content-wrapper .page-controls .filters .links .filterLabel,
 #harvest #content .content-wrapper .page-controls .filters .links .filterLabel {
   font-size: 15px;
@@ -1048,6 +1080,8 @@ a {
 #news #content .content-wrapper .page-controls .filters .show-options,
 #faqTopics #content .content-wrapper .page-controls .filters .show-options,
 #faqQuestions #content .content-wrapper .page-controls .filters .show-options,
+#pages #content .content-wrapper .page-controls .filters .show-options,
+#pageContents #content .content-wrapper .page-controls .filters .show-options,
 #harvestHistory #content .content-wrapper .page-controls .filters .show-options,
 #harvest #content .content-wrapper .page-controls .filters .show-options {
   float: right;
@@ -1057,6 +1091,8 @@ a {
 #news #content .content-wrapper .page-controls .filters .show-options .btn,
 #faqTopics #content .content-wrapper .page-controls .filters .show-options .btn,
 #faqQuestions #content .content-wrapper .page-controls .filters .show-options .btn,
+#pages #content .content-wrapper .page-controls .filters .show-options .btn,
+#pageContents #content .content-wrapper .page-controls .filters .show-options .btn,
 #harvestHistory #content .content-wrapper .page-controls .filters .show-options .btn,
 #harvest #content .content-wrapper .page-controls .filters .show-options .btn {
   display: inline-block;

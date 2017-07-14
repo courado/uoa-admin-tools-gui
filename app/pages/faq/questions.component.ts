@@ -8,7 +8,7 @@ import { ModalFormComponent } from "../modal-form.component";
 import { QuestionsFormComponent } from "./questions-form.component";
 import { CheckQuestion, Question, QuestionFilterOptions } from "../../domain/question";
 import { Topic } from "../../domain/topic";
-import {DeleteConfirmationDialogComponent} from "../delete-confirmation-dialog.component";
+import { DeleteConfirmationDialogComponent } from "../delete-confirmation-dialog.component";
 
 @Component({
     selector: 'questions',

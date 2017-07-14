@@ -1,0 +1,147 @@
+<div id="pageContents">
+    <div id="content">
+        <div class="menubar fixed">
+            <div class="sidebar-toggler visible-xs">
+                <i class="ion-navicon"></i>
+            </div>
+
+            <div class="page-title">Page Help Contents</div>
+            <form class="search">
+                <!--<input class="gwt-TextBox" placeholder="Search questions (question, answer)..." type="text">-->
+                <input #inputstring (keyup.enter)="filterBySearch(inputstring.value)" placeholder="Search page content (content)..." type="text"/>
+                <input class="btn" type="submit">
+            </form>
+            <a routerLink="/pageContents/new" class="btn btn-success pull-right"><i></i> New Page Content </a>
+        </div>
+
+        <div class="content-wrapper" id="contentWrapper">
+            <div>
+                <div class="contentPanel">
+                    <div class="alert alert-error" style="display: none;" aria-hidden="true">
+                        <span></span><span></span><span></span></div>
+                    <div class="alert alert-success" style="display: none;" aria-hidden="true">
+                        <span></span><span></span><span></span></div>
+                    <div class="alert" style="display: none;" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <div class="row page-controls">
+                        <div class="col-md-12 filters marginBottom20">
+                            <div class="links form-group form-inline">
+                                <div class="gwt-Label filterLabel">Filter by page:</div>
+                                <select class="input-xxlarge form-control" (change)="filterByPage($event)">
+                                    <option value="">-- none selected --</option>
+                                    <option *ngFor="let page of pages" value="{{page._id}}">{{page.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 filters">
+                            <div class="links">
+                                <div class="gwt-Label filterLabel">Filter page contents:</div>
+                                <a [ngClass]="{'active' : filters.active==null}" (click)="displayAllPageHelpContents()">
+                                    All Page Contents ({{counter.all}})
+                                </a>
+                                <a [ngClass]="{'active' : filters.active==true}" (click)="displayActivePageHelpContents()">
+                                    Active ({{counter.active}})
+                                </a>
+                                <a [ngClass]="{'active' : filters.active==false}" (click)="displayInactivePageHelpContents()">
+                                    Inactive ({{counter.inactive}})
+                                </a>
+                            </div>
+                            <div class="show-options">
+                                <div class="btn-group"><a href="javascript:;" class="btn dropdown-toggle"
+                                                          data-toggle="dropdown"><i></i> Bulk Actions <span
+                                        class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a (click)="togglePageHelpContents(true,getSelectedPageHelpContents())"><i></i> Activate </a></li>
+                                        <li><a (click)="togglePageHelpContents(false,getSelectedPageHelpContents())"><i></i> Deactivate </a></li>
+                                        <li><a (click)="confirmDeleteSelectedPageHelpContents()"><i></i> Delete </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="gwt-HTML">
+                            <div class="row users-list">
+                                <div class="col-md-12">
+                                    <div class="row headers">
+                                        <div class="col-sm-1 header select-users"><input id="allPageHelpContentsCheckbox" [checked]="checkboxAll" type="checkbox" (change)="toggleCheckBoxes($event)">
+                                        </div>
+                                        <div class="col-sm-2 header hidden-xs"><label><a href="#">Page</a></label></div>
+                                        <div class="col-sm-1 header hidden-xs"><label><a href="#">Placement</a></label></div>
+                                        <div class="col-sm-1 header hidden-xs"><label><a href="#">Order</a></label></div>
+                                        <div class="col-sm-1 header hidden-xs"><label><a href="#">Active</a></label></div>
+                                        <div class="col-sm-5 header hidden-xs"><label><a href="#">Content</a></label></div>
+                                        <div class="col-sm-1 header hidden-xs"><label><a href="#">Actions</a></label></div>
+                                    </div>
+
+                                    <template [ngIf]="pageHelpContentsCheckboxes && pageHelpContentsCheckboxes.length>0">
+                                        <div *ngFor="let check of pageHelpContentsCheckboxes; let i=index" class="row user">
+                                            <div class="col-sm-1 avatar"><input id="{{check.pageHelpContent._id}}" class="checkBox" type="checkbox"
+                                                                                name="pageHelpContentscb[]" value="{{check.pageHelpContent._id}}" [(ngModel)]="check.checked">
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="page" href="#">{{check.pageHelpContent.page.name}}</div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="placement" href="#">{{check.pageHelpContent.placement}}</div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="order" href="#">{{check.pageHelpContent.order}}
+                                                </div>
+                                            </div>
+                                            <!--<div class="col-sm-1">-->
+                                                <!--{{getNames(check.question).join(', ')}}-->
+                                                <!--&lt;!&ndash;<div class="topics" href="#">{{check.question.topics}}</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<span *ngFor="let topic of check.question.topics" class="label label-primary">{{topic.name}}</span>&ndash;&gt;-->
+                                            <!--</div>-->
+
+                                            <!--<div *ngIf="check.question.isActive" class="activated" >-->
+                                            <!--<input class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">-->
+                                            <!--</div>-->
+                                            <!--<div *ngIf="!check.question.isActive" class="activated" >-->
+                                            <!--<input class="deactivate" src="imgs/x-icon.png" title="Deactivate" width="20" type="image" height="20">-->
+                                            <!--</div>-->
+                                            <div class="col-sm-1">
+                                                <bSwitch [switch-on-text]="'A'" [switch-off-text]="'I'"
+                                                         [switch-label-text]="''" [(ngModel)]="check.pageHelpContent.isActive"
+                                                         [switch-on-color]="'mySuccess'" [switch-off-color]="'default'"
+                                                         [switch-size]="'small'"  [switch-handle-width]="22"
+                                                         (onChangeState)="toggleQuestion($event.currentValue,[check.pageHelpContent._id])"></bSwitch>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="content" href="#">{{check.pageHelpContent.content}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="actions" href="#">
+                                                    <input title="Edit" src="imgs/icn_edit.png" class="edit" type="image" (click)="editPageHelpContent(i)">
+                                                    <input title="Delete" src="imgs/icn_trash.png" class="delete" type="image" (click)="confirmDeletePageHelpContent(check.pageHelpContent._id)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div *ngIf="pageHelpContentsCheckboxes.length==0" class="col-md-12">
+                                        <div class="alert alert-warning">No page contents found</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<modal-form #saveModal [saveText]="'Save'" [titleText]="'Add a new Question'" [formGroup]="formGroup" [type]="'question'"-->
+            <!--[isModalShown]="isModalShown" (emmitObject)="questionSavedSuccessfully($event)" (emmitError)="handleError($event)">-->
+    <!--<questions-form [group]="formGroup" [availableTopics]="topics"></questions-form>-->
+<!--</modal-form>-->
+
+<!--<modal-form #updateModal [saveText]="'Update'" [titleText]="'Update Question'" [formGroup]="formGroup" [type]="'question'"-->
+            <!--[isModalShown]="isModalShown" (emmitObject)="questionUpdatedSuccessfully($event)" (emmitError)="handleError($event)">-->
+    <!--<questions-form [group]="formGroup" [availableTopics]="topics"></questions-form>-->
+<!--</modal-form>-->
+
+<delete-confirmation-dialog #deleteConfirmationModal [isModalShown]="isModalShown" (emmitObject)="confirmedDeletePageHelpContents($event)">
+    Are you sure you want to delete the selected page content(s)?
+</delete-confirmation-dialog>
+

@@ -55,7 +55,7 @@ export class TopicsComponent implements OnInit {
                     self.topicsCheckboxes.push(<CheckTopic>{topic : _, checked : false});
                 });
             },
-            error =>  this.errorMessage = <any>error);
+            error => this.handleError('System error retrieving topics topics', error));
     }
 
     public showModal():void {
@@ -94,7 +94,7 @@ export class TopicsComponent implements OnInit {
     public confirmedDeleteTopic(ids : string[]) {
         this._faqService.deleteTopics(ids).subscribe(
             _ => this.deleteTopicsFromArray(ids),
-            error => this.handleError(error)
+            error => this.handleError('System error deleting the selected topics', error)
         );
     }
 
@@ -122,7 +122,7 @@ export class TopicsComponent implements OnInit {
                     this.topicsCheckboxes[i].topic.questionOrder=order;
                 }
             },
-            error => this.handleError(<any>error)
+            error => this.handleError('System error ordering topics', <any>error)
         );
         this.applyCheck(false);
     }
@@ -154,10 +154,10 @@ export class TopicsComponent implements OnInit {
         return textFlag;
     }
 
-    handleError(error) {
+    handleError(message: string, error) {
         if(error == null) {
             this.formComponent.reset();
         }
-        this.errorMessage = 'System error saving topic (Server responded: ' + error + ')';
+        this.errorMessage = message + ' (Server responded: ' + error + ')';
     }
 }

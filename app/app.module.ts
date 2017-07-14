@@ -17,6 +17,13 @@ import { ModalFormComponent } from "./pages/modal-form.component";
 import { QuestionsFormComponent } from "./pages/faq/questions-form.component";
 import { DeleteConfirmationDialogComponent } from "./pages/delete-confirmation-dialog.component";
 import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
+import { PagesComponent } from "./pages/helpcontent/pages.component";
+import { HelpContentService } from "./services/help-content.service";
+import { PageFormComponent } from "./pages/helpcontent/page-form.component";
+import { PageHelpContentsComponent } from "./pages/helpcontent/page-help-contents.component";
+import { NewPageHelpContentComponent } from "./pages/helpcontent/new-page-help-content.component";
+import { CKEditorModule } from 'ng2-ckeditor';
+import { PageContentFormComponent } from "./pages/helpcontent/page-help-content-form.component";
 
 @NgModule({
     imports: [
@@ -27,7 +34,8 @@ import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
         ModalModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
-        JWBootstrapSwitchModule
+        JWBootstrapSwitchModule,
+        CKEditorModule
     ],
     declarations: [
         AppComponent,
@@ -37,10 +45,16 @@ import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
         TopicsFormComponent,
         ModalFormComponent,
         QuestionsFormComponent,
-        DeleteConfirmationDialogComponent
+        DeleteConfirmationDialogComponent,
+        PagesComponent,
+        PageFormComponent,
+        PageHelpContentsComponent,
+        NewPageHelpContentComponent,
+        PageContentFormComponent
     ],
     providers: [
         FAQService,
+        HelpContentService,
         appRoutingProviders
     ],
     bootstrap: [ AppComponent ]

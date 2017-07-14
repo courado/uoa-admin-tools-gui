@@ -1,0 +1,92 @@
+<div id="pages">
+    <div id="content">
+        <div class="menubar fixed">
+            <div class="sidebar-toggler visible-xs">
+                <i class="ion-navicon"></i>
+            </div>
+
+            <div class="page-title">Pages</div>
+            <form target="BSFormPanel_Admin_1" class="search">
+                <input #inputstring (keyup.enter)="filterBySearch(inputstring.value)" placeholder="Search pages (route, name)..." type="text"/>
+                <input class="btn" type="submit">
+            </form>
+            <a (click)="showModal()" class="btn btn-success pull-right"><i></i> New Page </a>
+        </div>
+
+        <div class="content-wrapper" id="contentWrapper">
+            <div>
+                <div class="contentPanel">
+                    <div class="alert alert-error" style="display: none;" aria-hidden="true">
+                        <span></span><span></span><span></span></div>
+                    <div class="alert alert-success" style="display: none;" aria-hidden="true">
+                        <span></span><span></span><span></span></div>
+                    <div class="alert" style="display: none;" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <div class="row page-controls">
+                        <div class="col-md-12 filters">
+                            <div class="show-options">
+                                <div class="btn-group"><a href="javascript:;" class="btn dropdown-toggle"
+                                                          data-toggle="dropdown"><i></i> Bulk Actions <span
+                                        class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a (click)="confirmDeleteSelectedPages()"><i></i> Delete </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="gwt-HTML">
+                            <div class="row users-list">
+                                <div class="col-md-12">
+                                    <div class="row headers">
+                                        <div class="col-sm-1 header select-users"><input id="allPageCheckbox" type="checkbox" (change)="toggleCheckBoxes($event)">
+                                        </div>
+                                        <div class="col-sm-4 header hidden-xs"><label><a href="#">Route</a></label></div>
+                                        <div class="col-sm-6 header hidden-xs"><label><a href="#">Name</a></label></div>
+                                        <div class="col-sm-1 header hidden-xs"><label><a href="#">Actions</a></label></div>
+                                    </div>
+
+                                    <template [ngIf]="pagesCheckboxes && pagesCheckboxes.length>0">
+                                        <div *ngFor="let check of pagesCheckboxes; let i=index" class="row user">
+                                            <div class="col-sm-1 avatar"><input id="{{check.page._id}}" class="checkBox" type="checkbox"
+                                                                                name="pagescb[]" value="{{check.page._id}}" [(ngModel)]="check.checked">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="route" href="#">{{check.page.route}}</div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="name" href="#">{{check.page.name}}</div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="actions" href="#">
+                                                    <input title="Edit" src="imgs/icn_edit.png" class="edit" type="image" (click)="editPage(i)">
+                                                    <input title="Delete" src="imgs/icn_trash.png" class="delete" type="image" (click)="confirmDeletePage(check.page._id)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div *ngIf="pagesCheckboxes.length==0" class="col-md-12">
+                                        <div class="alert alert-warning">No pages found</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<modal-form #saveModal [saveText]="'Save'" [titleText]="'Add a new Page'" [formGroup]="formGroup" [type]="'page'"
+            [isModalShown]="isModalShown" (emmitObject)="pageSavedSuccessfully($event)" (emmitError)="handleError($event)">
+    <page-form [group]="formGroup"></page-form>
+</modal-form>
+
+<modal-form #updateModal [saveText]="'Update'" [titleText]="'Update Page'" [formGroup]="formGroup" [type]="'page'" s
+            [isModalShown]="isModalShown" (emmitObject)="pageUpdatedSuccessfully($event)" (emmitError)="handleError($event)">
+    <page-form [group]="formGroup"></page-form>
+</modal-form>
+
+<delete-confirmation-dialog #deleteConfirmationModal [isModalShown]="isModalShown" (emmitObject)="confirmedDeletePages($event)">
+    Are you sure you want to delete the selected page(s)?
+</delete-confirmation-dialog>
