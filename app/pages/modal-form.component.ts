@@ -54,26 +54,32 @@ export class ModalFormComponent {
     public onHidden():void {
         this.isModalShown = false;
         this.emmitError.emit(null);
+        this.errorMessage = null;
     }
-
+    
     public saveCustom(obj : any) {
-        if (this.type == 'topic') {
-            this._faqService.saveTopic(<Topic> obj).subscribe(
-                data => this.emmitObject.emit(data),
-                error => this.emmitError.emit(error)
-            );
-        } else if (this.type == 'question') {
-            this._faqService.saveQuestion(<Question> obj).subscribe(
-                data => this.emmitObject.emit(data),
-                error => this.emmitError.emit(error)
-            );
-        } else if (this.type == 'page') {
-            this._helpService.savePage(<Page> obj).subscribe(
-                data => this.emmitObject.emit(data),
-                error => this.emmitError.emit(error)
-            );
+        if(!this.formGroup.valid) {
+            this.errorMessage = "Please fill in all required fields marked with *"
+        } else {
+
+            if (this.type == 'topic') {
+                this._faqService.saveTopic(<Topic> obj).subscribe(
+                    data => this.emmitObject.emit(data),
+                    error => this.emmitError.emit(error)
+                );
+            } else if (this.type == 'question') {
+                this._faqService.saveQuestion(<Question> obj).subscribe(
+                    data => this.emmitObject.emit(data),
+                    error => this.emmitError.emit(error)
+                );
+            } else if (this.type == 'page') {
+                this._helpService.savePage(<Page> obj).subscribe(
+                    data => this.emmitObject.emit(data),
+                    error => this.emmitError.emit(error)
+                );
+            }
+            this.hideModal();
         }
-        this.hideModal();
     }
 }
 

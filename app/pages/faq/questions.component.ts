@@ -34,7 +34,9 @@ export class QuestionsComponent implements OnInit {
 
     public questions : Question[] = [];
 
-    public errorMessage: string;
+    public errorMessage: string = null;
+
+    public successMessage: string = null;
 
     public formGroup : FormGroup;
 
@@ -124,6 +126,7 @@ export class QuestionsComponent implements OnInit {
     }
 
     private deleteQuestionsFromArray(ids : string[]) : void {
+        this.successMessage = `Successfully deleted Question(s)`;
         for(let id of ids) {
             let iqc = this.questionsCheckboxes.findIndex(_ => _.question._id == id);
             let iq = this.questions.findIndex(_ => _._id == id);
@@ -170,6 +173,7 @@ export class QuestionsComponent implements OnInit {
     public questionSavedSuccessfully(question: Question) {
         this.questionsCheckboxes.push(<CheckQuestion>{question : question, checked : false});
         this.questions.push(question);
+        this.successMessage = `Question [${question.question}] saved successfully`;
         this.applyCheck(false);
         this.countQuestions();
     }
@@ -177,6 +181,7 @@ export class QuestionsComponent implements OnInit {
     public questionUpdatedSuccessfully(question : Question) {
         this.questionsCheckboxes.find(checkItem => checkItem.question._id==question._id).question = question;
         let index = this.questions.findIndex(checkItem => checkItem._id==question._id);
+        this.successMessage = `Question [${question.question}] updated successfully`;
         this.questions[index] = question;
         this.applyCheck(false);
         this.countQuestions();
@@ -231,7 +236,8 @@ export class QuestionsComponent implements OnInit {
     handleError(error) {
         if(error == null) {
             this.formComponent.reset();
+        }else {
+            this.errorMessage = 'System error saving topic (Server responded: ' + error + ')';
         }
-        this.errorMessage = 'System error saving question (Server responded: ' + error + ')';
     }
 }

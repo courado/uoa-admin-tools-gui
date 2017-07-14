@@ -1,3 +1,12 @@
+@media (min-width: 768px) {
+  .form-inline .radio input[type="radio"],
+  .form-inline .checkbox input[type="checkbox"],
+  .form-group .checkbox input[type="checkbox"]{
+    float: left;
+    margin-right: 5px;
+  }
+}
+
 #sidebar-default {
   background: #00b9b4 none repeat scroll 0 0;
   border-right: 1px solid #18aba6;
@@ -1481,6 +1490,11 @@ table.dataTable td input.edit {
 #performanceIndicators #content .contentPanel {
   font-size: 15px;
   padding-left: 0;
+}
+
+.form-group.required label:after {
+  content:"*";
+  color:red;
 }
 
 

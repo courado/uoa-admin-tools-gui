@@ -1,9 +1,9 @@
 <form [formGroup]="myForm">
-    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.question.valid && myForm.controls.question.dirty}">
+    <div class="form-group required" [ngClass]="{'has-error':!myForm.controls.question.valid && myForm.controls.question.dirty}">
         <label for="questionTag">Question</label>
         <textarea class="form-control" formControlName="question" id="questionTag" placeholder="Question" rows="2"></textarea>
     </div>
-    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.answer.valid && myForm.controls.answer.dirty}">
+    <div class="form-group required" [ngClass]="{'has-error':!myForm.controls.answer.valid && myForm.controls.answer.dirty}">
         <label for="answerTag">Answer</label>
         <textarea class="form-control" formControlName="answer" id="answerTag" placeholder="Answer" rows="3"></textarea>
     </div>
@@ -11,39 +11,25 @@
         <label for="topicWeightTag">Weight</label>
         <input type="number" step="0.1" class="form-control" formControlName="weight" id="topicWeightTag" placeholder="Topic Weight (e.g. 3.5)">
     </div>
-    <!--<div class="form-group">-->
-        <!--<label for="topicWeightTag">Status</label>-->
     <div class="form-group">
         <label>Select Status</label>
-        <div>
-            <bSwitch formControlName="isActive" [switch-on-text]="'Active'" [switch-off-text]="'Inactive'"
+        <label class="checkbox">
+            <span style="font-weight: normal;">Active</span>
+            <input tabindex="0" type="checkbox" formControlName="isActive">
 
-                     [switch-on-color]="'mySuccess'" [switch-off-color]="'default'"
-                     [switch-size]="'medium'"  [switch-handle-width]="100"
-                     [switch-wrapper-class]="'form-group'">
-            </bSwitch>
-        </div>
+        </label>
     </div>
 
-    <div class="form-group" [ngClass]="{'has-error':!myForm.controls.weight.valid && myForm.controls.weight.dirty}">
+    <div class="form-group required" [ngClass]="{'has-error':!myForm.controls.weight.valid && myForm.controls.weight.dirty}">
         <label for="topicTag">Select Topic(s)</label>
         <select multiple formControlName="topics" id="topicTag" class="form-control">
             <option *ngFor="let topic of availableTopics" [value]="topic._id">{{topic.name}}</option>
         </select>
         <small class="form-text text-muted">Press <kbd>ctrl</kbd> + <kbd>click</kbd> to select more than one</small>
     </div>
-
-    <!--</div>-->
-    <!--<div class="form-group">-->
-        <!--<label for="topicQuestionOrder">Order questions by</label>-->
-        <!--<select class="form-control" id="topicQuestionOrder" formControlName="questionOrder">-->
-            <!--<option value="hits">Hit Count</option>-->
-            <!--<option value="weight">Weight</option>-->
-        <!--</select>-->
-    <!--</div>-->
     <input type="hidden" formControlName="_id">
-    <!--<input type="hidden" formControlName="date">-->
 </form>
 <!--<pre>-->
-<!--{{myForm.value | json}}-->
+<!--{{myForm.value | json}} |-->
+    <!--{{myForm.valid}}-->
 <!--</pre>-->

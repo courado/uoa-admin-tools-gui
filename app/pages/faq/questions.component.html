@@ -17,10 +17,14 @@
         <div class="content-wrapper" id="contentWrapper">
             <div>
                 <div class="contentPanel">
-                    <div class="alert alert-error" style="display: none;" aria-hidden="true">
-                        <span></span><span></span><span></span></div>
-                    <div class="alert alert-success" style="display: none;" aria-hidden="true">
-                        <span></span><span></span><span></span></div>
+                    <div [hidden]="!errorMessage" class="alert alert-danger alert-dismissible" aria-hidden="true">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{errorMessage}}
+                    </div>
+                    <div [hidden]="!successMessage" class="alert alert-success alert-dismissible"  aria-hidden="true">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {{successMessage}}
+                    </div>
                     <div class="alert" style="display: none;" aria-hidden="true"><span></span><span></span><span></span></div>
                     <div class="row page-controls">
                         <div class="col-md-12 filters marginBottom20">
@@ -101,20 +105,21 @@
                                             <div class="col-sm-1">
                                                 <div class="hitCount" href="#">{{check.question.hitCount}}</div>
                                             </div>
-
-                                                <!--<div *ngIf="check.question.isActive" class="activated" >-->
-                                                    <!--<input class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">-->
-                                                <!--</div>-->
-                                                <!--<div *ngIf="!check.question.isActive" class="activated" >-->
-                                                    <!--<input class="deactivate" src="imgs/x-icon.png" title="Deactivate" width="20" type="image" height="20">-->
-                                                <!--</div>-->
                                             <div class="col-sm-1">
-                                                <bSwitch [switch-on-text]="'A'" [switch-off-text]="'I'"
-                                                         [switch-label-text]="''" [(ngModel)]="check.question.isActive"
-                                                         [switch-on-color]="'mySuccess'" [switch-off-color]="'default'"
-                                                         [switch-size]="'small'"  [switch-handle-width]="22"
-                                                         (onChangeState)="toggleQuestion($event.currentValue,[check.question._id])"></bSwitch>
+                                                <div *ngIf="check.question.isActive" class="activated" >
+                                                    <input (click)="toggleQuestion(false,[check.question._id])" class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">
+                                                </div>
+                                                <div *ngIf="!check.question.isActive" class="activated" >
+                                                    <input (click)="toggleQuestion(true,[check.question._id])" class="deactivate" src="imgs/x-icon.png" title="Activate" width="20" type="image" height="20">
+                                                </div>
                                             </div>
+                                            <!--<div class="col-sm-1">-->
+                                                <!--<bSwitch [switch-on-text]="'A'" [switch-off-text]="'I'"-->
+                                                         <!--[switch-label-text]="''" [(ngModel)]="check.question.isActive"-->
+                                                         <!--[switch-on-color]="'mySuccess'" [switch-off-color]="'default'"-->
+                                                         <!--[switch-size]="'small'"  [switch-handle-width]="22"-->
+                                                         <!--(onChangeState)="toggleQuestion($event.currentValue,[check.question._id])"></bSwitch>-->
+                                            <!--</div>-->
                                             <div class="col-sm-1">
                                                 <div class="actions" href="#">
                                                     <input title="Edit" src="imgs/icn_edit.png" class="edit" type="image" (click)="editQuestion(i)">
