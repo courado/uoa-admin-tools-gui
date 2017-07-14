@@ -24,6 +24,7 @@ import { PageHelpContentsComponent } from "./pages/helpcontent/page-help-content
 import { NewPageHelpContentComponent } from "./pages/helpcontent/new-page-help-content.component";
 import { CKEditorModule } from 'ng2-ckeditor';
 import { PageContentFormComponent } from "./pages/helpcontent/page-help-content-form.component";
+import { EditPageHelpContentComponent } from "./pages/helpcontent/edit-page-help-content.component";
 
 @NgModule({
     imports: [
@@ -50,7 +51,8 @@ import { PageContentFormComponent } from "./pages/helpcontent/page-help-content-
         PageFormComponent,
         PageHelpContentsComponent,
         NewPageHelpContentComponent,
-        PageContentFormComponent
+        PageContentFormComponent,
+        EditPageHelpContentComponent
     ],
     providers: [
         FAQService,

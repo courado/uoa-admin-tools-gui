@@ -130,18 +130,9 @@ export class PageHelpContentsComponent implements OnInit {
         }
     }
 
-    // public editPageHelpContent(i : number) {
-    //     let pageHelpContent : PageHelpContent = Object.assign({}, this.pageHelpContentsCheckboxes[i].pageHelpContent);
-    //     // pageHelpContent.topics = <Topic[]>Object.create(this.pageHelpContentsCheckboxes[i].pageHelpContent.topics);
-    //     let topics : string[] = [];
-    //     for(let topic of <Topic[]>pageHelpContent.topics) {
-    //         topics.push(topic._id)
-    //     }
-    //     pageHelpContent.topics = topics;
-    //     console.log(pageHelpContent);
-    //     this.formGroup.patchValue(pageHelpContent);
-    //     this.updateModal.showModal();
-    // }
+    public editPageHelpContent(_id : string) {
+        this.router.navigate(['/pageContents/edit/', id]);
+    }
 
     public togglePageHelpContents(status : boolean, ids : string[]) {
         this._helpService.togglePageHelpContents(ids,status).subscribe(

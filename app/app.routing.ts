@@ -10,6 +10,7 @@ import { QuestionsComponent } from "./pages/faq/questions.component";
 import { PagesComponent } from "./pages/helpcontent/pages.component";
 import { PageHelpContentsComponent } from "./pages/helpcontent/page-help-contents.component";
 import { NewPageHelpContentComponent } from "./pages/helpcontent/new-page-help-content.component";
+import { EditPageHelpContentComponent } from "./pages/helpcontent/edit-page-help-content.component";
 
 const appRoutes: Routes = [
     {
@@ -40,6 +41,10 @@ const appRoutes: Routes = [
     {
         path: 'pageContents/new',
         component: NewPageHelpContentComponent,
+    },
+    {
+        path: 'pageContents/edit/:id',
+        component: EditPageHelpContentComponent,
     }
 ];
 

@@ -43,7 +43,10 @@
   margin-left: 140px;
 }
 
-#dashboard #content .menubar.fixed, #newPageHelpContent #content .menubar.fixed {
+#dashboard #content .menubar.fixed,
+#newPageHelpContent #content .menubar.fixed,
+#editPageHelpContent #content .menubar.fixed
+{
   padding-left: 300px;
 }
 
