@@ -62,7 +62,8 @@
   cursor: pointer;
 }
 
-#faqQuestions #content .content-wrapper .page-controls .filters .links a {
+#faqQuestions #content .content-wrapper .page-controls .filters .links a,
+#pageContents #content .content-wrapper .page-controls .filters .links a {
   cursor: pointer;
 }
 
@@ -1069,6 +1070,7 @@ a {
 #roles #content .content-wrapper .page-controls .filters .links a,
 #news #content .content-wrapper .page-controls .filters .links a,
 #faqQuestions #content .content-wrapper .page-controls .filters .links a,
+#pageContents #content .content-wrapper .page-controls .filters .links a,
 #harvest #content .content-wrapper .page-controls .filters .links a {
   color: #666;
   margin-right: 35px;
@@ -1081,6 +1083,7 @@ a {
 #roles #content .content-wrapper .page-controls .filters .links a.active,
 #news #content .content-wrapper .page-controls .filters .links a.active,
 #faqQuestions #content .content-wrapper .page-controls .filters .links a.active,
+#pageContents #content .content-wrapper .page-controls .filters .links a.active,
 #harvest #content .content-wrapper .page-controls .filters .links a.activ {
   border-bottom: 1px solid #82bfe9;
   color: #378fca;

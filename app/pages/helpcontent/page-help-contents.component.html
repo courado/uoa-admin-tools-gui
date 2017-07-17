@@ -88,24 +88,13 @@
                                                 <div class="order" href="#">{{check.pageHelpContent.order}}
                                                 </div>
                                             </div>
-                                            <!--<div class="col-sm-1">-->
-                                                <!--{{getNames(check.question).join(', ')}}-->
-                                                <!--&lt;!&ndash;<div class="topics" href="#">{{check.question.topics}}</div>&ndash;&gt;-->
-                                                <!--&lt;!&ndash;<span *ngFor="let topic of check.question.topics" class="label label-primary">{{topic.name}}</span>&ndash;&gt;-->
-                                            <!--</div>-->
-
-                                            <!--<div *ngIf="check.question.isActive" class="activated" >-->
-                                            <!--<input class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">-->
-                                            <!--</div>-->
-                                            <!--<div *ngIf="!check.question.isActive" class="activated" >-->
-                                            <!--<input class="deactivate" src="imgs/x-icon.png" title="Deactivate" width="20" type="image" height="20">-->
-                                            <!--</div>-->
                                             <div class="col-sm-1">
-                                                <bSwitch [switch-on-text]="'A'" [switch-off-text]="'I'"
-                                                         [switch-label-text]="''" [(ngModel)]="check.pageHelpContent.isActive"
-                                                         [switch-on-color]="'mySuccess'" [switch-off-color]="'default'"
-                                                         [switch-size]="'small'"  [switch-handle-width]="22"
-                                                         (onChangeState)="toggleQuestion($event.currentValue,[check.pageHelpContent._id])"></bSwitch>
+                                                <div *ngIf="check.pageHelpContent.isActive" class="activated" >
+                                                    <input (click)="togglePageHelpContents(false,[check.pageHelpContent._id])" class="deactivate" src="imgs/check-icon.png" title="Deactivate" width="20" type="image" height="20">
+                                                </div>
+                                                <div *ngIf="!check.pageHelpContent.isActive" class="activated" >
+                                                    <input (click)="togglePageHelpContents(true,[check.pageHelpContent._id])" class="deactivate" src="imgs/x-icon.png" title="Activate" width="20" type="image" height="20">
+                                                </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="content" href="#">{{check.pageHelpContent.content}}
@@ -131,15 +120,6 @@
         </div>
     </div>
 </div>
-<!--<modal-form #saveModal [saveText]="'Save'" [titleText]="'Add a new Question'" [formGroup]="formGroup" [type]="'question'"-->
-            <!--[isModalShown]="isModalShown" (emmitObject)="questionSavedSuccessfully($event)" (emmitError)="handleError($event)">-->
-    <!--<questions-form [group]="formGroup" [availableTopics]="topics"></questions-form>-->
-<!--</modal-form>-->
-
-<!--<modal-form #updateModal [saveText]="'Update'" [titleText]="'Update Question'" [formGroup]="formGroup" [type]="'question'"-->
-            <!--[isModalShown]="isModalShown" (emmitObject)="questionUpdatedSuccessfully($event)" (emmitError)="handleError($event)">-->
-    <!--<questions-form [group]="formGroup" [availableTopics]="topics"></questions-form>-->
-<!--</modal-form>-->
 
 <delete-confirmation-dialog #deleteConfirmationModal [isModalShown]="isModalShown" (emmitObject)="confirmedDeletePageHelpContents($event)">
     Are you sure you want to delete the selected page content(s)?

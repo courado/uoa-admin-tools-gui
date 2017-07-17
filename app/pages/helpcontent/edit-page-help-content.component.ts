@@ -1,12 +1,12 @@
 /**
  * Created by stefania on 7/14/17.
  */
-import {Component, ViewChild, OnInit, OnDestroy} from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { PageContentFormComponent } from "./page-help-content-form.component";
 import { Subscription } from "rxjs/Subscription";
 import { HelpContentService } from "../../services/help-content.service";
 import { PageHelpContent } from "../../domain/page-help-content";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector: 'edit-page-help-content',
@@ -22,7 +22,7 @@ export class EditPageHelpContentComponent implements OnInit, OnDestroy{
 
     private pageHelpContent: PageHelpContent;
 
-    private errorMessage : string = "";
+    private errorMessage : string = null;
 
     constructor(
         private route: ActivatedRoute,
@@ -48,16 +48,17 @@ export class EditPageHelpContentComponent implements OnInit, OnDestroy{
 
     private updateForm(pageHelpContent : PageHelpContent) {
         this.pageHelpContent = pageHelpContent;
-        this.formComponent.myForm.patchValue((pageHelpContent))
-        console.log("patching",pageHelpContent);
+        this.formComponent.myForm.patchValue((pageHelpContent));
+        // console.log("patching",pageHelpContent);
     }
 
     private saveCustom() {
+
         if(this.formComponent.myForm.valid) {
             let pageHelpContent : PageHelpContent = this.formComponent.myForm.value;
             this._helpContentService.savePageHelpContent(pageHelpContent).subscribe(
-                _ => console.log(_),
-                err => this.errorMessage = err
+                _ => this.router.navigate(['/pageContents']),
+                err => this.handleError('System error updating page content', err)
             );
         } else {
             this.errorMessage = "Please fill all required fields";

@@ -39,18 +39,15 @@
     </div>
     <div class="form-group">
         <label>Select Status</label>
-        <div>
-            <bSwitch formControlName="isActive" [switch-on-text]="'Active'" [switch-off-text]="'Inactive'"
+        <label class="checkbox">
+            <span style="font-weight: normal;">Active</span>
+            <input tabindex="0" type="checkbox" formControlName="isActive">
 
-                     [switch-on-color]="'mySuccess'" [switch-off-color]="'default'"
-                     [switch-size]="'medium'"  [switch-handle-width]="100"
-                     [switch-wrapper-class]="'form-group'">
-            </bSwitch>
-        </div>
+        </label>
     </div>
     <input type="hidden" formControlName="_id">
 </form>
-<pre>
-{{myForm.value | json}}
-    {{myForm.valid}}
-</pre>
+<!--<pre>-->
+<!--{{myForm.value | json}}-->
+    <!--{{myForm.valid}}-->
+<!--</pre>-->
