@@ -14,7 +14,7 @@
             <div class="modal-footer">
                 <div class="confirmationModalButtons">
                     <a (click)="hideModal()" class="btn"><i></i> Cancel </a>
-                    <a (click)="saveCustom()" class="btn btn-success"><i></i> {{saveText}} </a>
+                    <a (click)="saveCustom(formGroup.value)" class="btn btn-success"><i></i> {{saveText}} </a>
                 </div>
             </div>
         </div>

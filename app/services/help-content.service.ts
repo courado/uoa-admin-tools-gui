@@ -30,7 +30,7 @@ export class HelpContentService {
     }
 
     savePage(page: Page) {
-
+        console.log("savePage",page);
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
 
