@@ -18,11 +18,9 @@
             <div>
                 <div class="contentPanel">
                     <div [hidden]="!errorMessage" class="alert alert-danger alert-dismissible" aria-hidden="true">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         {{errorMessage}}
                     </div>
                     <div [hidden]="!successMessage" class="alert alert-success alert-dismissible"  aria-hidden="true">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         {{successMessage}}
                     </div>
                     <div class="alert" style="display: none;" aria-hidden="true"><span></span><span></span><span></span></div>
