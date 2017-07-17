@@ -1,4 +1,4 @@
-<div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
+<div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
 <form [formGroup]="myForm">
     <div class="form-group" [ngClass]="{'has-error':!myForm.controls.page.valid && myForm.controls.page.dirty}">
         <label for="pageTag">Select Page</label>
@@ -21,7 +21,8 @@
             <ckeditor
                     [readonly]="false"
                     debounce="500"
-                    formControlName="content">
+                    formControlName="content"
+                    [config]="{allowedContent: true,extraAllowedContent : '*(*)'}">
                 <!--id="contentTag"-->
                 <!--(ready)="onReady($event)"-->
                 <!--(focus)="onFocus($event)"-->

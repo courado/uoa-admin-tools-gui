@@ -11,7 +11,7 @@
         <div class="content-wrapper">
 
             <div>
-                <div *ngIf="errorMessage" class="uk-alert uk-alert-danger">{{errorMessage}}</div>
+                <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
                 <page-content-form [group]="formGroup"></page-content-form>
                 <a (click)="saveCustom()" class="btn btn-success"><i></i>Save page content</a>
             </div>
