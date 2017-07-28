@@ -13,7 +13,7 @@ export class FAQService {
 
     constructor (private http: Http) {}
 
-    private _faqsUrl = process.env.API_ENDPOINT + ':' + process.env.API_PORT + process.env.API_PATH;
+    private _faqsUrl = process.env.API_ENDPOINT;
 
     static removeNulls(obj){
         var isArray = obj instanceof Array;

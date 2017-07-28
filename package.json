@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "rm -rf dist/ && mkdir dist",
-    "build:prod": "webpack --progress -p",
-    "build": "webpack --progress -p",
+    "build:prod": "webpack --progress -p --env.release=true",
+    "build": "webpack --progress -p --env.release=false",
     "build:docker": "npm run build:prod && docker build -t omtd-platform .",
     "deploy:server": "docker rm -f omtd-platform && docker run --name omtd-platform -d -p 80:80 omtd-platform",
     "deploy:complete": "npm run build:docker && npm run deploy:server",

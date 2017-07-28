@@ -13,7 +13,7 @@ export class HelpContentService {
     constructor(private http:Http) {
     }
 
-    private _helpContentUrl = process.env.API_ENDPOINT + ':' + process.env.API_PORT + process.env.API_PATH;
+    private _helpContentUrl = process.env.API_ENDPOINT;
 
     static removeNulls(obj){
         var isArray = obj instanceof Array;
