@@ -91,7 +91,7 @@ var defaultConfig = {
 
 module.exports = function(env) {
     console.log(env);
-    if(!env.release && env.release != true) {
+    if((typeof env == 'undefined') || (!env.release && env.release != true)) {
         webpackConfig.plugins.push(
             new webpack.DefinePlugin({"process.env" : {
                 PRODUCTION: JSON.stringify(true),
